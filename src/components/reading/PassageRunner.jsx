@@ -2,24 +2,14 @@ import { useState } from 'react'
 import { CheckCircle2, XCircle } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
 import { useProgress } from '../../lib/progressStore.jsx'
-
-function normalize(s) {
-  return (s ?? '').toString().toLowerCase().replace(/[$,]/g, '').trim()
-}
-
-function isCorrect(question, userAnswer) {
-  const a = normalize(userAnswer)
-  const b = normalize(question.answer)
-  if (!a) return false
-  return a === b || b.includes(a) || a.includes(b)
-}
+import { isAnswerCorrect } from '../../lib/answerMatch.js'
 
 export function PassageRunner({ passage, onDone }) {
   const { markContentDone } = useProgress()
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
 
-  const score = passage.questions.filter((q) => isCorrect(q, answers[q.id])).length
+  const score = passage.questions.filter((q) => isAnswerCorrect(q, answers[q.id])).length
 
   function handleSubmit() {
     setSubmitted(true)
@@ -35,7 +25,7 @@ export function PassageRunner({ passage, onDone }) {
       <Card title="Questions">
         <div className="space-y-5">
           {passage.questions.map((q, i) => {
-            const correct = submitted && isCorrect(q, answers[q.id])
+            const correct = submitted && isAnswerCorrect(q, answers[q.id])
             return (
               <div key={q.id}>
                 <div className="mb-2 flex items-start justify-between gap-2 text-sm text-slate-200">

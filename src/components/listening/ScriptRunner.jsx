@@ -1,53 +1,68 @@
 import { useState } from 'react'
-import { CheckCircle2, Eye, EyeOff, XCircle } from 'lucide-react'
+import { CheckCircle2, XCircle } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
 import { useProgress } from '../../lib/progressStore.jsx'
+import { isAnswerCorrect } from '../../lib/answerMatch.js'
 import { TTSPlayer } from './TTSPlayer.jsx'
-
-function normalize(s) {
-  return (s ?? '').toString().toLowerCase().replace(/[$,]/g, '').trim()
-}
-
-function isCorrect(question, userAnswer) {
-  const a = normalize(userAnswer)
-  const b = normalize(question.answer)
-  if (!a) return false
-  return a === b || b.includes(a) || a.includes(b)
-}
 
 export function ScriptRunner({ script, onDone }) {
   const { markContentDone } = useProgress()
+  const [mode, setMode] = useState('exam')
   const [answers, setAnswers] = useState({})
   const [submitted, setSubmitted] = useState(false)
   const [showTranscript, setShowTranscript] = useState(false)
 
-  const score = script.questions.filter((q) => isCorrect(q, answers[q.id])).length
+  const score = script.questions.filter((q) => isAnswerCorrect(q, answers[q.id])).length
 
   function handleSubmit() {
     setSubmitted(true)
-    markContentDone('listening', script.id, { correct: score, total: script.questions.length })
+    markContentDone('listening', script.id, { correct: score, total: script.questions.length, mode })
   }
 
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card title={`${script.title} — Section ${script.section}`}>
-        <p className="mb-3 text-xs text-slate-500">{script.type}. Play the audio, then answer the questions. Replay as needed while practicing.</p>
-        <TTSPlayer text={script.text} />
+        <p className="mb-3 text-xs text-slate-500">{script.type}.</p>
 
-        <button
-          className="btn-secondary mt-3 !px-2 !py-1 text-xs"
-          onClick={() => setShowTranscript((s) => !s)}
-        >
-          {showTranscript ? <EyeOff size={12} /> : <Eye size={12} />}
-          {showTranscript ? 'Hide transcript' : 'Show transcript'}
-        </button>
-        {showTranscript && <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-300">{script.text}</p>}
+        <div className="mb-3 inline-flex rounded-lg border border-base-700 bg-base-850 p-1">
+          {[
+            { key: 'exam', label: 'Exam Mode' },
+            { key: 'practice', label: 'Practice Mode' },
+          ].map((m) => (
+            <button
+              key={m.key}
+              disabled={submitted}
+              onClick={() => setMode(m.key)}
+              className={`rounded-md px-3 py-1.5 text-xs font-semibold transition-colors ${
+                mode === m.key ? 'bg-amber-500 text-base-950' : 'text-slate-400 hover:text-slate-200'
+              }`}
+            >
+              {m.label}
+            </button>
+          ))}
+        </div>
+        <p className="mb-3 text-[11px] text-slate-500">
+          {mode === 'exam'
+            ? 'Plays once at natural speed, like the real test. No pausing to re-listen, no transcript until after you submit.'
+            : 'Replay as many times as you like and adjust playback speed — use this while you\'re still building familiarity.'}
+        </p>
+
+        <TTSPlayer key={script.id + mode} text={script.text} mode={mode} />
+
+        {submitted && (
+          <>
+            <button className="btn-secondary mt-3 !px-2 !py-1 text-xs" onClick={() => setShowTranscript((s) => !s)}>
+              {showTranscript ? 'Hide transcript' : 'Show transcript (review)'}
+            </button>
+            {showTranscript && <p className="mt-3 whitespace-pre-line text-sm leading-relaxed text-slate-300">{script.text}</p>}
+          </>
+        )}
       </Card>
 
       <Card title="Questions">
         <div className="space-y-4">
           {script.questions.map((q, i) => {
-            const correct = submitted && isCorrect(q, answers[q.id])
+            const correct = submitted && isAnswerCorrect(q, answers[q.id])
             return (
               <div key={q.id}>
                 <div className="mb-2 flex items-start justify-between gap-2 text-sm text-slate-200">

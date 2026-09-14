@@ -120,12 +120,27 @@ builds one entry per day from `startDate` to the target date. Same inputs
 
 - **Reading/Listening** (`PassageRunner` / `ScriptRunner`): pick an item →
   answer inline (TFNG buttons / MCQ radios / short-answer text) → "Check
-  Answers" grades with lenient string matching (`normalize()` in each
-  runner — case/whitespace/currency-symbol insensitive, substring match)
-  and reveals the correct answer next to anything wrong. Listening reads
-  the script aloud via the **Web Speech API** (`TTSPlayer.jsx`,
-  `window.speechSynthesis`) with play/pause/stop and a rate slider;
-  degrades to a "show transcript" toggle if unsupported.
+  Answers" grades via `lib/answerMatch.js::isAnswerCorrect` (shared by
+  both runners) — case/whitespace/currency-symbol insensitive, but numeric
+  answers require an **exact** match (a naive substring check previously
+  marked "18" correct against answer "8" — fixed) and text answers require
+  whole-word containment, not a raw substring. Reveals the correct answer
+  next to anything wrong.
+  Listening has an **Exam Mode vs Practice Mode** toggle (`ScriptRunner`,
+  default Exam): Exam Mode plays the script once via the **Web Speech
+  API** (`TTSPlayer.jsx`) at natural speed with no replay and no speed
+  control — matches real test conditions; Practice Mode allows replay and
+  an adjustable rate for building familiarity. In both modes the
+  transcript is hidden until *after* submission (review only) — it used
+  to be visible up front, which let you just read the answer instead of
+  listening for it; that was the main reason the section felt too easy.
+  Degrades to a "show transcript after submitting" message if
+  `speechSynthesis` is unsupported.
+  Listening scripts also each include at least one classic IELTS
+  distractor (information stated, then explicitly corrected —
+  "actually, that's changed" / "let me check again") and questions that
+  paraphrase the text rather than quoting it, so keyword-spotting alone
+  isn't enough.
 - **Writing** (`PromptRunner`): countdown timer (`useCountdown`), live word
   count, Academic Task 1 prompts render their chart via Recharts
   (`Task1Chart.jsx`, data lives on the prompt object in
@@ -147,12 +162,17 @@ builds one entry per day from `startDate` to the target date. Same inputs
 ## Content authoring rule — do not mine `Prep Resources/`
 
 `Prep Resources/` contains what appear to be **pirated** copies of
-copyrighted IELTS books (torrent-site marker files present — see
-`.gitignore`, which excludes the whole folder from git). Do not extract
-passages, prompts, or questions from those files into `src/content/` —
-all practice content in this app must stay originally authored. If asked
-to expand content, write new original material in the same style as the
-existing `src/content/*.js` files.
+copyrighted IELTS books and test audio (torrent-site marker files present
+alongside a `Cambridge IELTS 21 Academic.rar` — see `.gitignore`, which
+excludes the whole folder from git). Do not extract passages, prompts,
+questions, or audio from those files into `src/content/` — all practice
+content in this app must stay originally authored, text and audio alike
+(Listening uses browser TTS specifically so no real audio file is ever
+needed). This was asked for explicitly once already (to "fix" Listening
+being too easy) and declined for this reason — the actual fix was
+tightening the app's own content/grading, not sourcing real test audio.
+If asked to expand content, write new original material in the same style
+as the existing `src/content/*.js` files.
 
 ## Persistence / verification notes
 
