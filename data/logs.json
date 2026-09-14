@@ -1,0 +1,166 @@
+{
+  "profile": {
+    "targetTestDate": "2026-10-15",
+    "targetBandOverall": 8.5,
+    "targetBands": {
+      "listening": 9.0,
+      "reading": 8.5,
+      "writing": 8.0,
+      "speaking": 8.0
+    },
+    "primaryModule": "undecided"
+  },
+
+  "studyLog": [
+    { "date": "2026-09-09", "activity": "Reading - True/False/Not Given drill", "module": "reading", "minutes": 40, "xp": 35 },
+    { "date": "2026-09-10", "activity": "Writing Task 2 - Academic essay (opinion)", "module": "writing", "minutes": 55, "xp": 60 },
+    { "date": "2026-09-11", "activity": "Listening Section 3 - lecture drill", "module": "listening", "minutes": 30, "xp": 30 },
+    { "date": "2026-09-12", "activity": "Speaking Part 2 - cue card practice", "module": "speaking", "minutes": 25, "xp": 40 },
+    { "date": "2026-09-13", "activity": "Reading - Matching Headings drill", "module": "reading", "minutes": 35, "xp": 35 },
+    { "date": "2026-09-14", "activity": "Vocabulary - academic word list review", "module": "writing", "minutes": 20, "xp": 20 }
+  ],
+
+  "mockTests": [
+    {
+      "id": "mt-1",
+      "date": "2026-08-03",
+      "label": "Diagnostic Mock #1",
+      "overallBand": 6.5,
+      "listening": 7.0,
+      "reading": 6.5,
+      "writing": 6.0,
+      "speaking": 6.5
+    },
+    {
+      "id": "mt-2",
+      "date": "2026-08-24",
+      "label": "Progress Mock #2",
+      "overallBand": 7.0,
+      "listening": 7.5,
+      "reading": 7.0,
+      "writing": 6.5,
+      "speaking": 7.0
+    },
+    {
+      "id": "mt-3",
+      "date": "2026-09-10",
+      "label": "Progress Mock #3",
+      "overallBand": 7.5,
+      "listening": 8.0,
+      "reading": 7.5,
+      "writing": 7.0,
+      "speaking": 7.5
+    }
+  ],
+
+  "writingEntries": [
+    {
+      "id": "w-1",
+      "date": "2026-08-05",
+      "module": "academic",
+      "task": "task1",
+      "prompt": "Bar chart: international student enrollment by country, 2010-2020",
+      "tr": 6.0,
+      "cc": 6.5,
+      "lr": 6.0,
+      "gra": 6.0,
+      "notes": "Overview paragraph was weak; too much low-level data listing instead of trends."
+    },
+    {
+      "id": "w-2",
+      "date": "2026-08-20",
+      "module": "academic",
+      "task": "task2",
+      "prompt": "Some people think universities should focus on academic subjects; others think vocational skills matter more. Discuss both views.",
+      "tr": 6.5,
+      "cc": 6.0,
+      "lr": 6.5,
+      "gra": 6.0,
+      "notes": "Good balance of views but conclusion repeated intro instead of synthesizing."
+    },
+    {
+      "id": "w-3",
+      "date": "2026-09-08",
+      "module": "general",
+      "task": "task1",
+      "prompt": "Formal letter to a landlord about a maintenance issue",
+      "tr": 7.0,
+      "cc": 7.0,
+      "lr": 6.5,
+      "gra": 7.0,
+      "notes": "Tone and register were accurate throughout; minor article errors."
+    },
+    {
+      "id": "w-4",
+      "date": "2026-09-12",
+      "module": "academic",
+      "task": "task2",
+      "prompt": "Governments should invest more in public transport than in roads. To what extent do you agree?",
+      "tr": 7.0,
+      "cc": 7.0,
+      "lr": 7.0,
+      "gra": 6.5,
+      "notes": "Clear position throughout; a couple of complex sentences had subject-verb agreement slips."
+    }
+  ],
+
+  "readingEntries": [
+    { "id": "r-1", "date": "2026-08-06", "questionType": "True/False/Not Given", "correct": 11, "total": 14, "timeMinutes": 18 },
+    { "id": "r-2", "date": "2026-08-22", "questionType": "Matching Headings", "correct": 6, "total": 8, "timeMinutes": 16 },
+    { "id": "r-3", "date": "2026-09-05", "questionType": "Summary Completion", "correct": 8, "total": 10, "timeMinutes": 14 },
+    { "id": "r-4", "date": "2026-09-13", "questionType": "Matching Headings", "correct": 7, "total": 8, "timeMinutes": 13 }
+  ],
+
+  "readingErrorLog": [
+    { "id": "re-1", "date": "2026-08-06", "questionType": "True/False/Not Given", "rootCause": "Confused 'Not Given' with 'False' when info was simply absent", "notes": "Practice distinguishing absence-of-info vs. contradiction." },
+    { "id": "re-2", "date": "2026-08-22", "questionType": "Matching Headings", "rootCause": "Focused on keyword overlap instead of paragraph's main idea", "notes": "Read topic sentences first before matching." },
+    { "id": "re-3", "date": "2026-09-05", "questionType": "Summary Completion", "rootCause": "Word limit violation (wrote two words when one was allowed)", "notes": "Double-check instructions before every summary task." }
+  ],
+
+  "listeningEntries": [
+    { "id": "l-1", "date": "2026-08-04", "testName": "Diagnostic Mock #1", "sections": { "s1": 8, "s2": 7, "s3": 8, "s4": 6 }, "totalQuestions": 40, "band": 7.0 },
+    { "id": "l-2", "date": "2026-08-25", "testName": "Progress Mock #2", "sections": { "s1": 9, "s2": 8, "s3": 8, "s4": 7 }, "totalQuestions": 40, "band": 7.5 },
+    { "id": "l-3", "date": "2026-09-11", "testName": "Progress Mock #3", "sections": { "s1": 10, "s2": 9, "s3": 8, "s4": 8 }, "totalQuestions": 40, "band": 8.0 }
+  ],
+
+  "listeningMapDrills": [
+    { "id": "md-1", "date": "2026-08-15", "mapName": "University Campus Layout", "correct": 6, "total": 8, "notes": "Missed directional pivots ('turn left at the second junction')." },
+    { "id": "md-2", "date": "2026-09-11", "mapName": "Town Library Floor Plan", "correct": 7, "total": 8, "notes": "Better tracking of speaker's path this time." }
+  ],
+
+  "speakingEntries": [
+    {
+      "id": "s-1",
+      "date": "2026-08-07",
+      "part": "part1",
+      "transcript": "Interviewer asked about hometown, work/study, and daily routine. Responses were relevant but short, often single-sentence.",
+      "fc": 6.0,
+      "lr": 6.0,
+      "gra": 6.5,
+      "pron": 6.5,
+      "notes": "Extend answers with a reason or example, not just a direct answer."
+    },
+    {
+      "id": "s-2",
+      "date": "2026-08-26",
+      "part": "part2",
+      "transcript": "Cue card: 'Describe a skill you would like to learn.' Spoke for 1:40 of the 2 minutes; covered all bullet points.",
+      "fc": 6.5,
+      "lr": 6.5,
+      "gra": 6.5,
+      "pron": 7.0,
+      "notes": "Good structure; ran out of content near the end. Practice extending with a hypothetical ('If I learned this, I would...')."
+    },
+    {
+      "id": "s-3",
+      "date": "2026-09-12",
+      "part": "part3",
+      "transcript": "Discussion on skills and education in society, abstract questions about automation and future jobs.",
+      "fc": 7.0,
+      "lr": 7.0,
+      "gra": 7.0,
+      "pron": 7.0,
+      "notes": "Handled abstraction well; used a wider range of linking devices than in Part 1."
+    }
+  ]
+}

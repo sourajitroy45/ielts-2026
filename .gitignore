@@ -1,0 +1,8 @@
+node_modules/
+dist/
+.DS_Store
+*.local
+
+# Copyrighted study materials (Cambridge, IELTS Advantage, etc.) — kept
+# local only, never pushed to a remote.
+Prep Resources/
