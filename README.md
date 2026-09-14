@@ -75,5 +75,5 @@ without errors as of the last setup pass.
 
 ## Links
 
-- Code repo: local only (this folder) — no remote yet
+- Code repo: [github.com/sourajitroy45/ielts-2026](https://github.com/sourajitroy45/ielts-2026) (private)
 - Deployed URL: none — local dev only (`npm run dev`)
