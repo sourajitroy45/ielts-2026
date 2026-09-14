@@ -4,9 +4,11 @@ import { Card } from '../shared/Card.jsx'
 import { Field, BandSelect } from '../shared/Field.jsx'
 import { CopyJsonButton } from '../shared/CopyJsonButton.jsx'
 import { Task1Chart } from './Task1Chart.jsx'
+import { BandDescriptorPanel } from './BandDescriptorPanel.jsx'
 import { averageBand } from '../../lib/bands.js'
 import { useCountdown } from '../../lib/useCountdown.js'
 import { useProgress } from '../../lib/progressStore.jsx'
+import { TASK2_ESSAY_TYPES } from '../../content/bandDescriptors.js'
 
 const CRITERIA = [
   { key: 'tr', label: 'TR' },
@@ -42,6 +44,9 @@ export function PromptRunner({ prompt, onDone }) {
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card title={prompt.title}>
+        {prompt.essayType && (
+          <span className="pill mb-2 inline-block bg-amber-500/10 text-amber-400">{TASK2_ESSAY_TYPES[prompt.essayType]}</span>
+        )}
         <p className="mb-3 text-sm text-slate-300">{prompt.prompt}</p>
         {prompt.chart && <Task1Chart chart={prompt.chart} />}
         <ul className="mt-3 list-inside list-disc space-y-1 text-xs text-slate-500">
@@ -75,6 +80,7 @@ export function PromptRunner({ prompt, onDone }) {
         ) : (
           <div className="mt-4 space-y-3 border-t border-base-700 pt-4">
             <p className="text-xs text-slate-500">Rate your own response against the 4 criteria (or use a tutor's feedback if you have it).</p>
+            <BandDescriptorPanel />
             <div className="grid grid-cols-2 gap-3 sm:grid-cols-4">
               {CRITERIA.map(({ key, label }) => (
                 <Field key={key} label={label}>

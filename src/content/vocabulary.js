@@ -163,6 +163,42 @@ export const VOCAB_SETS = [
       { word: 'scrutiny', pos: 'n.', definition: 'critical observation or examination', example: 'Public figures face constant scrutiny from the press.', synonyms: ['examination', 'inspection'] },
     ],
   },
+  {
+    id: 'set-band9-verbs',
+    title: 'Band 9: Precise Academic Verbs',
+    words: [
+      { word: 'underscore', pos: 'v.', definition: 'to emphasise or highlight the importance of something', example: 'The report underscores the need for urgent reform.', synonyms: ['emphasise', 'highlight'] },
+      { word: 'conflate', pos: 'v.', definition: 'to wrongly treat two distinct things as if they were one', example: 'Critics argue the policy conflates correlation with causation.', synonyms: ['merge', 'blur together'] },
+      { word: 'circumvent', pos: 'v.', definition: 'to find a way around an obstacle or rule', example: 'Some firms restructure specifically to circumvent the new tax.', synonyms: ['bypass', 'evade'] },
+      { word: 'exacerbate', pos: 'v.', definition: 'to make a problem worse', example: 'Cutting funding further would only exacerbate the shortage.', synonyms: ['worsen', 'aggravate'] },
+      { word: 'corroborate', pos: 'v.', definition: 'to confirm or support with additional evidence', example: 'Independent data corroborate the study\'s central finding.', synonyms: ['confirm', 'substantiate'] },
+      { word: 'delineate', pos: 'v.', definition: 'to describe or outline precisely', example: 'The contract delineates each party\'s responsibilities in detail.', synonyms: ['outline', 'define clearly'] },
+      { word: 'eschew', pos: 'v.', definition: 'to deliberately avoid something', example: 'The designer eschews ornamentation in favour of stark simplicity.', synonyms: ['avoid', 'shun'] },
+      { word: 'galvanise', pos: 'v.', definition: 'to prompt someone into sudden, decisive action', example: 'The images galvanised public support for the campaign.', synonyms: ['spur', 'mobilise'] },
+      { word: 'preclude', pos: 'v.', definition: 'to prevent something from happening', example: 'A prior commitment precluded her from attending.', synonyms: ['prevent', 'rule out'] },
+      { word: 'substantiate', pos: 'v.', definition: 'to provide evidence to support a claim', example: 'The claim has yet to be substantiated by peer-reviewed research.', synonyms: ['verify', 'prove'] },
+      { word: 'undermine', pos: 'v.', definition: 'to weaken or damage something gradually', example: 'Persistent delays have undermined public confidence in the project.', synonyms: ['weaken', 'erode'] },
+      { word: 'reconcile', pos: 'v.', definition: 'to make two seemingly conflicting things compatible', example: 'The report attempts to reconcile growth targets with environmental limits.', synonyms: ['harmonise', 'square'] },
+    ],
+  },
+  {
+    id: 'set-band9-collocations',
+    title: 'Band 9: Natural Collocations & Idiom',
+    words: [
+      { word: 'a far cry from', pos: 'idiom', definition: 'very different from something', example: 'The final policy is a far cry from what was originally proposed.', synonyms: ['nothing like', 'worlds apart from'] },
+      { word: 'strike a balance', pos: 'collocation', definition: 'to find a satisfactory middle point between two demands', example: 'Regulators must strike a balance between innovation and consumer protection.', synonyms: ['find equilibrium'] },
+      { word: 'a double-edged sword', pos: 'idiom', definition: 'something with both significant benefits and significant drawbacks', example: 'Automation is a double-edged sword for the manufacturing workforce.', synonyms: ['mixed blessing'] },
+      { word: 'gain traction', pos: 'collocation', definition: 'to start to become accepted or popular', example: 'The four-day work week is gaining traction among tech firms.', synonyms: ['gain momentum', 'catch on'] },
+      { word: 'a slippery slope', pos: 'idiom', definition: 'a course of action likely to lead to a worse, harder-to-reverse outcome', example: 'Opponents warn the exemption is a slippery slope toward broader deregulation.', synonyms: ['a dangerous precedent'] },
+      { word: 'the elephant in the room', pos: 'idiom', definition: 'an obvious problem that people avoid discussing', example: 'Funding was the elephant in the room throughout the negotiations.', synonyms: ['the unspoken issue'] },
+      { word: 'cut corners', pos: 'idiom', definition: 'to do something in the cheapest or easiest way, often sacrificing quality', example: 'Investigators found the contractor had cut corners on safety inspections.', synonyms: ['skimp', 'take shortcuts'] },
+      { word: 'a watershed moment', pos: 'idiom', definition: 'a turning point after which things are markedly different', example: 'The ruling was a watershed moment for digital privacy law.', synonyms: ['a turning point', 'a landmark event'] },
+      { word: 'at the mercy of', pos: 'idiom', definition: 'entirely dependent on and unable to resist something', example: 'Coastal farmers remain at the mercy of increasingly erratic weather.', synonyms: ['vulnerable to', 'subject to'] },
+      { word: 'a stopgap measure', pos: 'collocation', definition: 'a temporary solution used until a permanent one is found', example: 'The subsidy was intended as a stopgap measure, not a long-term fix.', synonyms: ['a temporary fix', 'a band-aid solution'] },
+      { word: 'far-reaching implications', pos: 'collocation', definition: 'consequences that extend widely, often unpredictably', example: 'The court\'s decision could have far-reaching implications for the industry.', synonyms: ['wide-ranging consequences'] },
+      { word: 'in the same vein', pos: 'idiom', definition: 'following the same style or pattern as something just mentioned', example: 'In the same vein, critics question whether the second reform will fare any better.', synonyms: ['similarly', 'along the same lines'] },
+    ],
+  },
 ]
 
 export const ALL_VOCAB_WORDS = VOCAB_SETS.flatMap((set) =>

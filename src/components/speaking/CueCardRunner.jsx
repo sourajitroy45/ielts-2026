@@ -1,7 +1,8 @@
 import { useState } from 'react'
-import { CheckCircle2, MessageCircle, Play, RotateCcw } from 'lucide-react'
+import { CheckCircle2, Lightbulb, MessageCircle, Play, RotateCcw } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
 import { MicRecorder } from './MicRecorder.jsx'
+import { SpeakingBandDescriptorPanel } from './SpeakingBandDescriptorPanel.jsx'
 import { useCountdown } from '../../lib/useCountdown.js'
 import { useProgress } from '../../lib/progressStore.jsx'
 
@@ -38,6 +39,14 @@ export function CueCardRunner({ set, onDone }) {
           ))}
         </div>
       </div>
+
+      {set.band9Tip && (
+        <div className="flex items-start gap-2 rounded-lg border border-amber-500/20 bg-amber-500/5 px-3 py-2.5 text-xs text-slate-300">
+          <Lightbulb size={14} className="mt-0.5 shrink-0 text-amber-400" />
+          <span><span className="font-semibold text-amber-400">Band 9 tip — </span>{set.band9Tip}</span>
+        </div>
+      )}
+      <SpeakingBandDescriptorPanel />
 
       {part === 'part1' && (
         <Card title="Part 1 — Interview Questions" icon={MessageCircle}>

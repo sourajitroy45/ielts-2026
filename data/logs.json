@@ -1,12 +1,12 @@
 {
   "profile": {
     "targetTestDate": "2026-10-15",
-    "targetBandOverall": 8.5,
+    "targetBandOverall": 9.0,
     "targetBands": {
       "listening": 9.0,
-      "reading": 8.5,
-      "writing": 8.0,
-      "speaking": 8.0
+      "reading": 9.0,
+      "writing": 9.0,
+      "speaking": 9.0
     },
     "primaryModule": "undecided"
   },

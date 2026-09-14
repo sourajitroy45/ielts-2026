@@ -65,6 +65,7 @@ export function ScriptRunner({ script, onDone }) {
             const correct = submitted && isAnswerCorrect(q, answers[q.id])
             return (
               <div key={q.id}>
+                {q.label && <span className="pill mb-1.5 inline-block bg-indigo-500/10 text-indigo-400">{q.label}</span>}
                 <div className="mb-2 flex items-start justify-between gap-2 text-sm text-slate-200">
                   <span>{i + 1}. {q.prompt}</span>
                   {submitted && (correct ? <CheckCircle2 size={16} className="shrink-0 text-emerald-400" /> : <XCircle size={16} className="shrink-0 text-rose-400" />)}

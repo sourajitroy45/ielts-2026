@@ -14,10 +14,20 @@ logged, but in a secondary Progress tab, not the main flow.
 
 | | Overall | Listening | Reading | Writing | Speaking |
 |---|---|---|---|---|---|
-| **Target** | **8.5** | 9.0 | 8.5 | 8.0 | 8.0 |
+| **Target** | **9.0** | 9.0 | 9.0 | 9.0 | 9.0 |
 | **Latest mock** (Progress Mock #3, 2026-09-10) | 7.5 | 8.0 | 7.5 | 7.0 | 7.5 |
 
 **Target test date:** October 15, 2026 — live countdown on the Overview tab.
+
+Content and self-assessment are calibrated to Band 9 using the **official
+IELTS Band Descriptors** (Writing + Speaking, pulled directly from
+ielts.org) — see the "Band 9 vs. Band 7" reference panel in the Writing
+and Speaking practice pages. Before this calibration pass, official
+sources were checked directly to confirm the core 2026 test format is
+unchanged (only delivery mode + retake logistics changed) — several
+"2026 changes" claims circulating in blogs are not corroborated by
+IELTS/IDP and were deliberately not built into this app; see CLAUDE.md
+for the full research note.
 
 ## Pages
 
@@ -27,19 +37,28 @@ logged, but in a secondary Progress tab, not the main flow.
   rotates through Reading/Listening/Writing/Speaking focus days, mixed
   drills, review days, and a mock test every 10 days, tapering to light
   review just before the exam. Checkable tasks award XP.
-- **Vocabulary** — 100 words across 10 themed sets, flashcards with a
-  5-box spaced-repetition (Leitner) system. Words you know move further
-  out on the schedule; words you miss come back tomorrow.
-- **Writing** — pick a prompt (Academic Task 1 includes a real chart,
-  rendered live), write against a timer with live word count, then
-  self-assess against TR/CC/LR/GRA for a computed band.
-- **Reading** — 8 original passages with True/False/Not Given, multiple
-  choice, and summary-completion questions, graded inline.
-- **Listening** — 8 scripts read aloud in-browser via text-to-speech
-  (covers all 4 section types) plus an interactive map-labeling drill for
-  spatial/direction questions.
+- **Vocabulary** — 124 words across 12 themed sets (incl. 2 "Band 9" sets:
+  precise academic verbs + natural idiomatic collocations), flashcards
+  with a 5-box spaced-repetition (Leitner) system. Words you know move
+  further out on the schedule; words you miss come back tomorrow.
+- **Writing** — 17 prompts across both tracks, each Task 2 labeled with
+  its official essay type (Opinion / Discussion / Problem-Solution /
+  Advantage-Disadvantage / Two-Part). Academic Task 1 renders a real
+  chart (line/bar/pie). Self-assessment shows the official Band 9 vs
+  Band 7 descriptor text side by side while you score TR/CC/LR/GRA.
+- **Reading** — 8 Band-9-register passages (lettered paragraphs, denser
+  argument, less direct answer location) spanning True/False/Not Given,
+  Yes/No/Not Given, Matching Information, Matching Sentence Endings,
+  Summary Completion, and Multiple Choice — graded inline.
+- **Listening** — 8 scripts read aloud via text-to-speech, each with a
+  classic IELTS distractor (info stated, then corrected) and an inference
+  question. **Exam Mode** (default) plays once at natural speed with the
+  transcript hidden until after you submit; **Practice Mode** allows
+  replay/slower speed. Plus an interactive map-labeling drill.
 - **Speaking** — Part 1/2/3 practice sets with real exam timing (60s prep
-  / 2min speak for Part 2) and optional mic recording for self-playback.
+  / 2min speak for Part 2), a Band 9 tip and descriptor reference per set,
+  a hypothetical/comparative Part 3 question in every set, and optional
+  mic recording for self-playback.
 - **Progress** — the score-tracking half of the original build: mock-test
   radar/progression charts plus per-skill score logging forms, for when
   you actually sit a mock test or get evaluated feedback.
@@ -76,6 +95,12 @@ server after the practice-first rebuild (Sept 2026).
       generated day-by-day study plan, and a vocabulary page
 - [x] Verify `npm install` / `npm run build` / `npm run dev` run clean
 - [x] Push to GitHub (private repo, `Prep Resources/` excluded)
+- [x] Rework Listening difficulty (transcript no longer visible pre-submit,
+      Exam Mode, fixed a grading bug, harder scripts with distractors)
+- [x] Recalibrate to Band 9: wider official question-type coverage in
+      Reading/Listening, official Band 9 vs 7 descriptor reference in
+      Writing/Speaking self-assessment, labeled Task 2 essay types,
+      2 advanced vocabulary sets
 - [ ] Expand content pools (more reading passages, listening scripts,
       writing prompts, speaking sets) as the current ones get used up
 - [ ] Consider real-time grading feedback for writing (would need an LLM

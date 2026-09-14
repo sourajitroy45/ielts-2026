@@ -4,6 +4,9 @@ import { Card } from '../shared/Card.jsx'
 import { useProgress } from '../../lib/progressStore.jsx'
 import { isAnswerCorrect } from '../../lib/answerMatch.js'
 
+const YNNG_OPTIONS = ['YES', 'NO', 'NOT GIVEN']
+const TFNG_OPTIONS = ['TRUE', 'FALSE', 'NOT GIVEN']
+
 export function PassageRunner({ passage, onDone }) {
   const { markContentDone } = useProgress()
   const [answers, setAnswers] = useState({})
@@ -19,6 +22,10 @@ export function PassageRunner({ passage, onDone }) {
   return (
     <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
       <Card title={passage.title}>
+        <p className="mb-3 text-xs text-slate-500">
+          {passage.questions.length} questions · suggested time {Math.round(passage.text.split(' ').length / 20)} min
+          (real exam pace: ~1.5 min/question)
+        </p>
         <p className="whitespace-pre-line text-sm leading-relaxed text-slate-300">{passage.text}</p>
       </Card>
 
@@ -26,16 +33,20 @@ export function PassageRunner({ passage, onDone }) {
         <div className="space-y-5">
           {passage.questions.map((q, i) => {
             const correct = submitted && isAnswerCorrect(q, answers[q.id])
+            const options = q.type === 'ynng' ? YNNG_OPTIONS : q.type === 'tfng' ? TFNG_OPTIONS : null
             return (
               <div key={q.id}>
+                <div className="mb-1.5 flex items-start justify-between gap-2">
+                  {q.label && <span className="pill bg-sky-500/10 text-sky-400">{q.label}</span>}
+                </div>
                 <div className="mb-2 flex items-start justify-between gap-2 text-sm text-slate-200">
                   <span>{i + 1}. {q.prompt}</span>
                   {submitted && (correct ? <CheckCircle2 size={16} className="shrink-0 text-emerald-400" /> : <XCircle size={16} className="shrink-0 text-rose-400" />)}
                 </div>
 
-                {q.type === 'tfng' && (
+                {options && (
                   <div className="flex flex-wrap gap-2">
-                    {['TRUE', 'FALSE', 'NOT GIVEN'].map((opt) => (
+                    {options.map((opt) => (
                       <button
                         key={opt}
                         disabled={submitted}

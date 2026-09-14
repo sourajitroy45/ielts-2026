@@ -13,14 +13,44 @@ spaced-repetition vocabulary trainer. Real mock-test scores are logged
 separately, in a secondary **Progress** tab.
 
 - **Target test date:** October 15, 2026
-- **Target band:** 8.5 overall (Listening 9.0 / Reading 8.5 / Writing 8.0 / Speaking 8.0)
+- **Target band:** 9.0 across all four skills (raised from 8.5 overall per
+  explicit request — "I want to aim for IELTS band 9").
 - Both **Academic** and **General Training** writing tracks are kept live.
 
-This app was rebuilt once already (2026-09) from a pure score-tracking
-dashboard into a practice-first tool, per explicit user feedback: "I don't
-want to use it as a test tracking system but to practice using the portal."
-Keep that framing in mind — practice/learning is the primary capability;
-score logging is secondary.
+This app has been reworked twice already (2026-09), both times per
+explicit user feedback:
+1. From a pure score-tracking dashboard into a practice-first tool ("I
+   don't want to use it as a test tracking system but to practice using
+   the portal").
+2. From Band-7-ish difficulty to genuine Band 9 calibration ("The
+   sections seem too easy and doesn't follow latest IELTS testing and
+   questions patterns").
+Keep that framing in mind — practice/learning is the primary capability,
+score logging is secondary, and content should stay calibrated to Band 9,
+not a generic "intermediate" difficulty.
+
+### Research note on "latest IELTS patterns" (2026-09)
+
+Before the Band 9 rework, official sources were checked directly
+(ielts.org, ielts.idp.com): the core test construct — skills assessed,
+question-type families, section structure — is **unchanged for 2026**.
+The only confirmed 2026 changes are delivery-mode ones: paper-based
+testing ends mid-2026 (final date ~June 27, 2026 in most markets), a
+"Writing on Paper" hybrid option exists in some markets, and IELTS One
+Skill Retake (retake a single section within 60 days) is well-established.
+Several SEO/blog sources claimed things like "new inference-focused
+Listening question types" or "video-call Speaking" — **none of that is
+corroborated by IELTS/IDP/Cambridge directly**, so none of it was built
+into this app. If a future session is asked to chase another "2026
+changes" claim, verify against ielts.org / ielts.idp.com first; don't
+build features on uncorroborated blog claims.
+What *did* legitimately warrant a rework: this app only exercised a
+narrow slice of the official question-type taxonomy (TFNG, MCQ, one
+completion type) at moderate difficulty. The real fix was widening
+coverage to more of the official taxonomy and raising the register/
+difficulty of the content itself — see `src/content/bandDescriptors.js`
+for the actual official Band 9 vs Band 7 language this is calibrated
+against (pulled directly from the ielts.org public band descriptor PDFs).
 
 ## Repo layout
 
@@ -31,11 +61,21 @@ IELTS 2026/
 ├── Prep Resources/          ← raw study materials, NOT text-mined (see below), git-ignored
 └── src/
     ├── content/               ← static original practice content (not from Prep Resources)
-    │   ├── vocabulary.js         10 sets × 10 words = 100 words
-    │   ├── readingPassages.js    8 original passages + comprehension questions
-    │   ├── listeningScripts.js   8 scripts (read aloud via TTS) + questions
-    │   ├── writingPrompts.js     8 prompts (Academic T1/T2, General T1/T2); T1 includes chart data
-    │   └── speakingCueCards.js   8 themed sets: Part 1 / Part 2 cue card / Part 3
+    │   ├── vocabulary.js         12 sets × ~10-12 words = 124 words (incl. 2 "Band 9" sets:
+    │   │                         precise academic verbs + natural idiomatic collocations)
+    │   ├── readingPassages.js    8 Band-9-register passages, lettered paragraphs (A, B, C...),
+    │   │                         5 questions each spanning TFNG/YNNG/Matching Information/
+    │   │                         Matching Sentence Endings/Summary Completion/MCQ
+    │   ├── listeningScripts.js   8 scripts (read aloud via TTS), 6 questions each incl. 1
+    │   │                         inference question requiring synthesis, not lookup
+    │   ├── writingPrompts.js     17 prompts: 3 Academic Task 1 (line/bar/pie chart data),
+    │   │                         5 Academic Task 2 + 4 General Task 2 (each labeled with its
+    │   │                         official essay type — see bandDescriptors.js), 2 General Task 1
+    │   ├── speakingCueCards.js   8 themed sets: Part 1 / Part 2 cue card / Part 3 (each now
+    │   │                         includes one hypothetical/comparative question + a band9Tip)
+    │   └── bandDescriptors.js    Official IELTS Band 9 vs Band 7 descriptor text (Writing +
+    │                             Speaking, pulled from ielts.org PDFs) + the 5 official Task 2
+    │                             essay types — the actual calibration reference for self-assessment
     ├── lib/
     │   ├── LogsContext.jsx       data/logs.json + in-session overlay (Progress tab data)
     │   ├── progressStore.jsx     localStorage: practice completion, vocab Leitner state, plan checklist
@@ -119,13 +159,22 @@ builds one entry per day from `startDate` to the target date. Same inputs
 ## Practice mechanics, page by page
 
 - **Reading/Listening** (`PassageRunner` / `ScriptRunner`): pick an item →
-  answer inline (TFNG buttons / MCQ radios / short-answer text) → "Check
-  Answers" grades via `lib/answerMatch.js::isAnswerCorrect` (shared by
-  both runners) — case/whitespace/currency-symbol insensitive, but numeric
-  answers require an **exact** match (a naive substring check previously
-  marked "18" correct against answer "8" — fixed) and text answers require
-  whole-word containment, not a raw substring. Reveals the correct answer
-  next to anything wrong.
+  answer inline → "Check Answers" grades via
+  `lib/answerMatch.js::isAnswerCorrect` (shared by both runners) —
+  case/whitespace/currency-symbol insensitive, but numeric answers require
+  an **exact** match (a naive substring check previously marked "18"
+  correct against answer "8" — fixed) and text answers require whole-word
+  containment, not a raw substring. Reveals the correct answer next to
+  anything wrong.
+  Question `type` drives the input widget: `tfng` (True/False/Not Given),
+  `ynng` (Yes/No/Not Given — for opinion-bearing passages), `mcq` (radio
+  options — also used to implement Matching Information / Matching
+  Sentence Endings / Classification / Inference questions, since they're
+  all mechanically "pick one option"), `completion` (free text). The
+  optional `label` field on a question is purely a UI badge naming the
+  official task type — it does not affect grading — so adding a new
+  "flavor" of matching/classification question never requires touching
+  the runner, only the content file.
   Listening has an **Exam Mode vs Practice Mode** toggle (`ScriptRunner`,
   default Exam): Exam Mode plays the script once via the **Web Speech
   API** (`TTSPlayer.jsx`) at natural speed with no replay and no speed
@@ -143,16 +192,27 @@ builds one entry per day from `startDate` to the target date. Same inputs
   isn't enough.
 - **Writing** (`PromptRunner`): countdown timer (`useCountdown`), live word
   count, Academic Task 1 prompts render their chart via Recharts
-  (`Task1Chart.jsx`, data lives on the prompt object in
-  `writingPrompts.js`). Finishing opens a self-assessment (TR/CC/LR/GRA),
-  computes the band, marks practice complete, and offers a Copy-JSON
-  button to also log it in `data/logs.json`.
+  (`Task1Chart.jsx` — supports line/bar/pie, data lives on the prompt
+  object in `writingPrompts.js`). Task 2 prompts show their official essay
+  type as a badge (`TASK2_ESSAY_TYPES` in `bandDescriptors.js`). Finishing
+  opens a self-assessment (TR/CC/LR/GRA) with `BandDescriptorPanel` — the
+  real official Band 9 vs Band 7 text, collapsed by default — right next
+  to the score inputs, so self-assessment is calibrated against the actual
+  descriptors rather than guesswork. Computes the band, marks practice
+  complete, and offers a Copy-JSON button to also log it in
+  `data/logs.json`.
 - **Speaking** (`CueCardRunner`): Part 1/2/3 tabs, Part 2 has separate prep
   and speak countdowns matching real test timing (60s prep / 2min speak).
-  `MicRecorder.jsx` requests `getUserMedia` + `MediaRecorder`; the
-  recording is a blob URL for in-browser playback only — **never uploaded
-  or persisted**, gone on reload. Degrades gracefully (a message, no
-  crash) if the mic is denied or `MediaRecorder` is unsupported.
+  Each set shows a `band9Tip` (short, specific guidance — not generic
+  advice) and `SpeakingBandDescriptorPanel` (same Band 9 vs 7 pattern as
+  Writing, sourced from the official Speaking descriptors). Part 3 always
+  includes one hypothetical/comparative question — abstract reasoning
+  under time pressure is the real Band 7→9 differentiator, more so than
+  vocabulary alone. `MicRecorder.jsx` requests `getUserMedia` +
+  `MediaRecorder`; the recording is a blob URL for in-browser playback
+  only — **never uploaded or persisted**, gone on reload. Degrades
+  gracefully (a message, no crash) if the mic is denied or
+  `MediaRecorder` is unsupported.
 - **Vocabulary**: simple 5-box Leitner system (`progressStore.jsx`,
   `LEITNER_INTERVALS`). Correct recall moves a word up a box (next review
   further out, up to 14 days at box 5 = "mastered"); incorrect resets to
