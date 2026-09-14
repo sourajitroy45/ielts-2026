@@ -5,131 +5,175 @@ before making changes.
 
 ## What this is
 
-A local, single-user IELTS prep dashboard. React + Vite + Tailwind
-frontend, no backend, no auth, no deployment — it runs on `localhost` via
-`npm run dev` and reads score history from a single JSON file.
+A local, single-user IELTS **practice** app — not just a score tracker.
+React + Vite + Tailwind frontend, no backend, no auth, no deployment — runs
+on `localhost` via `npm run dev`. The main capability is gamified practice
+content for each exam section, a generated day-by-day study plan, and a
+spaced-repetition vocabulary trainer. Real mock-test scores are logged
+separately, in a secondary **Progress** tab.
 
 - **Target test date:** October 15, 2026
 - **Target band:** 8.5 overall (Listening 9.0 / Reading 8.5 / Writing 8.0 / Speaking 8.0)
-- Both **Academic** and **General Training** writing tracks are kept live
-  (module not yet finalized) — see the toggle in the Writing tab.
+- Both **Academic** and **General Training** writing tracks are kept live.
+
+This app was rebuilt once already (2026-09) from a pure score-tracking
+dashboard into a practice-first tool, per explicit user feedback: "I don't
+want to use it as a test tracking system but to practice using the portal."
+Keep that framing in mind — practice/learning is the primary capability;
+score logging is secondary.
 
 ## Repo layout
 
 ```
 IELTS 2026/
-├── README.md            ← human-facing overview, current scores, next steps
-├── CLAUDE.md             ← you are here
-├── data/
-│   └── logs.json          ← single source of truth for all score/study data
-├── Prep Resources/        ← raw study materials (Cambridge, IELTS Advantage, etc.)
-│                             not yet text-mined — see "PDF resources" below
-├── index.html, vite.config.js, tailwind.config.js, postcss.config.js
-├── package.json
+├── README.md / CLAUDE.md
+├── data/logs.json          ← real mock-test scores + evaluated practice (Progress tab only)
+├── Prep Resources/          ← raw study materials, NOT text-mined (see below), git-ignored
 └── src/
-    ├── main.jsx, App.jsx, index.css
+    ├── content/               ← static original practice content (not from Prep Resources)
+    │   ├── vocabulary.js         10 sets × 10 words = 100 words
+    │   ├── readingPassages.js    8 original passages + comprehension questions
+    │   ├── listeningScripts.js   8 scripts (read aloud via TTS) + questions
+    │   ├── writingPrompts.js     8 prompts (Academic T1/T2, General T1/T2); T1 includes chart data
+    │   └── speakingCueCards.js   8 themed sets: Part 1 / Part 2 cue card / Part 3
     ├── lib/
-    │   ├── LogsContext.jsx   ← React context wrapping data/logs.json + in-session overlay
-    │   ├── gamification.js   ← XP / level / streak / countdown, all derived from data
-    │   └── bands.js           ← IELTS band-score rounding & formatting helpers
+    │   ├── LogsContext.jsx       data/logs.json + in-session overlay (Progress tab data)
+    │   ├── progressStore.jsx     localStorage: practice completion, vocab Leitner state, plan checklist
+    │   ├── NavigationContext.jsx lets any component switch the active sidebar tab
+    │   ├── studyPlan.js          deterministic day-by-day plan generator (today → target date)
+    │   ├── useCountdown.js       countdown-timer hook (writing/speaking timers)
+    │   ├── gamification.js       XP / level / streak — merges logs.json + progressStore bonus XP
+    │   └── bands.js              IELTS band-score rounding & formatting
     └── components/
-        ├── layout/             ← Sidebar/nav
-        ├── shared/             ← Card, BandPill, CopyJsonButton, ModuleToggle, PartToggle, Field
-        ├── overview/           ← countdown, gamification header, radar chart, mock progression
-        ├── writing/            ← Academic/General toggle, TR/CC/LR/GRA form, entry list
-        ├── reading/            ← accuracy-by-question-type, error log
-        ├── listening/          ← section tracker, map-labeling drill
-        └── speaking/           ← Part 1/2/3 transcript logger, FC/LR/GRA/Pronunciation form
+        ├── layout/                Sidebar (8 nav items)
+        ├── shared/                 Card, BandPill, CopyJsonButton, ModuleToggle, PartToggle, Field
+        ├── overview/               countdown, gamification header, today's-plan card, quick links
+        ├── studyplan/              StudyPlanModule — full day-by-day checklist
+        ├── vocabulary/             VocabularyModule + VocabFlashcard — spaced-repetition review
+        ├── writing/                practice: WritingModule → PromptRunner (timer + chart + self-score)
+        ├── reading/                practice: ReadingModule → PassageRunner (TFNG/MCQ/completion)
+        ├── listening/              practice: ListeningModule → ScriptRunner (TTSPlayer) + MapLabelingDrill
+        ├── speaking/               practice: SpeakingModule → CueCardRunner (timers + MicRecorder)
+        └── progress/               ProgressModule — mock-test radar/progression + per-skill score logs
+                                     (contains *ScoreLog.jsx, moved here from the original build;
+                                      they still render the shared *ScoreForm/*EntryList/*Tracker
+                                      components that live in writing/, reading/, listening/, speaking/)
 ```
 
-## Data model — `data/logs.json`
+## Two separate data/progress systems — don't conflate them
 
-Top-level keys:
+1. **`data/logs.json`** (via `LogsContext`) — the record of *real, evaluated*
+   results: mock tests and any score you choose to log (TR/CC/LR/GRA,
+   section scores, etc.). Feeds the **Progress** tab only. Persistence
+   model unchanged from the original build: static import, no backend: an
+   in-app "Add to this session" is a session-only overlay; **"Copy JSON"**
+   buttons copy a paste-ready entry for the matching array in the file —
+   paste it in to persist, Vite hot-reloads the file automatically.
 
-- `profile` — `targetTestDate`, `targetBandOverall`, `targetBands` (per skill).
-- `studyLog[]` — daily micro-drills: `{ date, activity, module, minutes, xp }`.
-  Drives the XP counter and the daily streak.
-- `mockTests[]` — full practice tests: `{ id, date, label, overallBand, listening, reading, writing, speaking }`
-  (per-skill fields are plain band numbers, not criteria breakdowns). Drives
-  the radar chart and the progression line chart.
-- `writingEntries[]` — per-task practice: `{ id, date, module: "academic"|"general", task: "task1"|"task2", prompt, tr, cc, lr, gra, notes }`.
-- `readingEntries[]` — `{ id, date, questionType, correct, total, timeMinutes }`.
-- `readingErrorLog[]` — `{ id, date, questionType, rootCause, notes }`.
-- `listeningEntries[]` — `{ id, date, testName, sections: {s1,s2,s3,s4}, totalQuestions, band }`.
-- `listeningMapDrills[]` — `{ id, date, mapName, correct, total, notes }`.
-- `speakingEntries[]` — `{ id, date, part: "part1"|"part2"|"part3", transcript, fc, lr, gra, pron, notes }`.
+2. **`localStorage` via `progressStore.jsx`** (`useProgress()`) — durable,
+   per-browser practice state: which content items you've completed
+   (reading passages, listening drills, writing prompts, speaking sets),
+   vocabulary Leitner-box state, and study-plan task checkboxes. This is
+   what drives the **practice pages** and contributes bonus XP. It does
+   **not** sync to `data/logs.json` and isn't meant to — it's UI/practice
+   state, not a record worth hand-editing or committing.
 
-When adding a new entry type or field, update this list.
+When adding a feature, decide up front which of these two systems it
+belongs to (or both, like `PromptRunner`, which marks practice complete in
+`progressStore` *and* offers a Copy-JSON button to also log it as a real
+score in `data/logs.json` if the user wants that).
 
-## Persistence model — important
+## Study plan generator (`lib/studyPlan.js`)
 
-**There is no backend.** `data/logs.json` is imported statically by
-`src/lib/LogsContext.jsx` (`import seedData from '../../data/logs.json'`).
-This means:
+`generateStudyPlan(targetDateStr, startDate = today)` deterministically
+builds one entry per day from `startDate` to the target date. Same inputs
+→ same task IDs every time, which is what lets task-completion state
+(keyed by ID in `progressStore`) survive across reloads without a backend.
 
-1. The file on disk is the real source of truth.
-2. In-app "Add to this session" buttons only update React state — they are
-   an **overlay**, visible for that session, tagged with an "unsaved"
-   badge. A reload without editing the file reverts to seed data.
-3. Every log form also has a **"Copy JSON"** button that copies a
-   ready-to-paste object (with a trailing comma) for the matching array in
-   `data/logs.json`.
+- A 7-day rotating cycle: `reading → listening → writing → speaking →
+  mixed-rl → mixed-ws → review`.
+- Every 10th day becomes a **mock-test** day (overrides the cycle).
+- The last day before the target becomes **light-review** (logistics +
+  light vocab only, no new content).
+- The target date itself is **test-day** (a single congratulatory task).
+- Each day's tasks reference specific items from `src/content/*` (rotated
+  by index, wrapping via modulo) and always include one vocab-set review
+  task. Task `link.page` lets a task jump straight to the relevant nav tab
+  via `useNavigation()` — it does **not** deep-link to a specific content
+  item (out of scope for this build); the user picks the item from that
+  page's list.
 
-**To make a new entry durable:** paste the copied JSON into the right
-array in `data/logs.json` and save — Vite's dev server hot-reloads JSON
-imports automatically.
+## Gamification (`lib/gamification.js` + `progressStore.jsx`)
 
-If a future session wants real persistence (form submits write the file
-directly), that requires adding a small local backend (e.g. a tiny Express
-or Vite plugin middleware that writes to `data/logs.json` on POST) — this
-was deliberately deferred to keep the app a pure static frontend. Flag this
-tradeoff to the user before silently adding a backend.
+- **XP** = `sum(data.studyLog[].xp)` + `100 × mockTests.length` (from
+  `logs.json`) **+** `bonusXp` (from `progressStore`: +15 per reading/
+  listening item completed, +20 per writing/speaking item, +2 per vocab
+  review, +10-50 per plan task depending on type — see `XP_VALUES` in
+  `progressStore.jsx`).
+- **Level** = `floor(xp / 500) + 1`.
+- **Streak** = consecutive days with either a `studyLog` entry **or** any
+  `progressStore` practice activity (content completion, vocab review, or
+  plan task), ending today or yesterday.
+- Band scores still follow the official IELTS rounding rule (`bands.js`).
 
-## Derived values (never hand-edit these — they're computed)
+## Practice mechanics, page by page
 
-Defined in `src/lib/gamification.js`:
+- **Reading/Listening** (`PassageRunner` / `ScriptRunner`): pick an item →
+  answer inline (TFNG buttons / MCQ radios / short-answer text) → "Check
+  Answers" grades with lenient string matching (`normalize()` in each
+  runner — case/whitespace/currency-symbol insensitive, substring match)
+  and reveals the correct answer next to anything wrong. Listening reads
+  the script aloud via the **Web Speech API** (`TTSPlayer.jsx`,
+  `window.speechSynthesis`) with play/pause/stop and a rate slider;
+  degrades to a "show transcript" toggle if unsupported.
+- **Writing** (`PromptRunner`): countdown timer (`useCountdown`), live word
+  count, Academic Task 1 prompts render their chart via Recharts
+  (`Task1Chart.jsx`, data lives on the prompt object in
+  `writingPrompts.js`). Finishing opens a self-assessment (TR/CC/LR/GRA),
+  computes the band, marks practice complete, and offers a Copy-JSON
+  button to also log it in `data/logs.json`.
+- **Speaking** (`CueCardRunner`): Part 1/2/3 tabs, Part 2 has separate prep
+  and speak countdowns matching real test timing (60s prep / 2min speak).
+  `MicRecorder.jsx` requests `getUserMedia` + `MediaRecorder`; the
+  recording is a blob URL for in-browser playback only — **never uploaded
+  or persisted**, gone on reload. Degrades gracefully (a message, no
+  crash) if the mic is denied or `MediaRecorder` is unsupported.
+- **Vocabulary**: simple 5-box Leitner system (`progressStore.jsx`,
+  `LEITNER_INTERVALS`). Correct recall moves a word up a box (next review
+  further out, up to 14 days at box 5 = "mastered"); incorrect resets to
+  box 1 (due again tomorrow). "Review" tab shows only due words; "Browse
+  Sets" shows every word's current box across all 10 themed sets.
 
-- **XP** = sum of `studyLog[].xp` + 100 × `mockTests.length`.
-- **Level** = `floor(xp / 500) + 1` (500 XP per level).
-- **Streak** = consecutive days in `studyLog` ending today or yesterday
-  (breaks to 0 if the most recent entry is older than yesterday).
-- **Days to test** = `targetTestDate − today`, computed client-side with the
-  real current date (not hardcoded), so it's always accurate.
+## Content authoring rule — do not mine `Prep Resources/`
 
-Band scores follow the official IELTS rule: average the 4 criteria, then
-round to the nearest 0.5, rounding `.25` up to the next half-band and `.75`
-up to the next whole band — implemented in `src/lib/bands.js::roundBand`.
+`Prep Resources/` contains what appear to be **pirated** copies of
+copyrighted IELTS books (torrent-site marker files present — see
+`.gitignore`, which excludes the whole folder from git). Do not extract
+passages, prompts, or questions from those files into `src/content/` —
+all practice content in this app must stay originally authored. If asked
+to expand content, write new original material in the same style as the
+existing `src/content/*.js` files.
 
-## Conventions
+## Persistence / verification notes
 
-- Dark mode is the only theme (`darkMode: 'class'` + `class="dark"` on
-  `<html>` in `index.html`) — this is a personal single-user tool, not a
-  themeable product.
-- Component folders mirror the 5 dashboard sections; shared/reusable UI
-  goes in `components/shared/`.
-- Keep new "log an entry" forms consistent with the existing pattern: local
-  form state → computed preview → `addEntry(collection, entry)` for the
-  session overlay → `<CopyJsonButton>` for durable persistence.
-- Prefer deriving stats (XP, streak, accuracy %, band averages) from
-  `data/logs.json` at render time over storing redundant computed fields.
-
-## PDF resources (`Prep Resources/`)
-
-Contains Cambridge IELTS 21 Academic materials, IELTS Advantage
-Reading/Writing skill books, a general prep guide, and a General Training
-study plan. These have **not** been text-mined into this app yet —
-`poppler-utils` (`pdftotext`/`pdftoppm`) isn't installed on this machine.
-If asked to extract structured content from them (e.g. drill questions,
-vocabulary lists), either install `poppler-utils` via Homebrew (ask first)
-or read pages directly via the Read tool's PDF support.
+- `npm install`, `npm run build`, and `npm run dev` were all verified clean
+  after this rebuild (Sept 2026) — see README for the exact commands.
+- No automated tests. Verification has been build + dev-server smoke
+  checks (every changed file requested via the dev server, confirming 200
+  + no console errors) rather than a test suite.
+- `gh auth setup-git` was run so plain `git push`/`git pull` work without
+  extra `gh` invocations — see README's GitHub section.
 
 ## Known gaps / intentionally deferred
 
-- The map-labeling drill (`listening/MapLabelingDrill.jsx`) uses a fixed
-  sample floor plan (5 points, 6 options) — not generated from real audio
-  content yet.
-- No routing library — navigation is a `useState` tab switch in `App.jsx`,
-  intentional given the small, single-page scope.
-- No tests. Given the scope (personal tracking tool), verification has
-  been via `npm run build` + manual dev-server smoke checks rather than an
-  automated test suite — add one if the app grows in complexity.
+- No deep-linking from a study-plan task straight to a specific content
+  item — it navigates to the page, user picks from the list.
+- Reading/Listening answer grading is a lenient string match, not a
+  real NLP grader — good enough for self-practice, not exam-accurate for
+  free-text answers with many valid phrasings.
+- No routing library — navigation is a `useState` tab switch lifted into
+  `NavigationContext` so nested components (e.g. a study-plan task's "Go"
+  button) can also trigger it.
+- Writing/Speaking self-assessment is exactly that — self-assessed, no
+  AI or tutor grading (would require a backend/LLM integration, out of
+  scope for a static frontend).

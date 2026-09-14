@@ -1,10 +1,12 @@
 import { Flame, Sparkles, Trophy } from 'lucide-react'
 import { computeLevel, computeStreak, computeXp } from '../../lib/gamification.js'
+import { useProgress } from '../../lib/progressStore.jsx'
 
 export function GamificationHeader({ data }) {
-  const xp = computeXp(data)
+  const { bonusXp, practiceDates } = useProgress()
+  const xp = computeXp(data, bonusXp)
   const { level, xpIntoLevel, xpForNextLevel, progress } = computeLevel(xp)
-  const streak = computeStreak(data.studyLog)
+  const streak = computeStreak(data.studyLog, new Date(), [...practiceDates])
 
   return (
     <div className="card flex flex-col gap-4 p-5 sm:flex-row sm:items-center sm:justify-between">

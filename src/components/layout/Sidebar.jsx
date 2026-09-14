@@ -1,11 +1,14 @@
-import { BookOpen, Headphones, LayoutDashboard, Mic, PenLine, Target } from 'lucide-react'
+import { BarChart3, BookMarked, BookOpen, CalendarDays, Headphones, LayoutDashboard, Mic, PenLine, Target } from 'lucide-react'
 
 const NAV_ITEMS = [
   { key: 'overview', label: 'Overview', icon: LayoutDashboard },
+  { key: 'studyplan', label: 'Study Plan', icon: CalendarDays },
+  { key: 'vocabulary', label: 'Vocabulary', icon: BookMarked },
   { key: 'writing', label: 'Writing', icon: PenLine },
   { key: 'reading', label: 'Reading', icon: BookOpen },
   { key: 'listening', label: 'Listening', icon: Headphones },
   { key: 'speaking', label: 'Speaking', icon: Mic },
+  { key: 'progress', label: 'Progress', icon: BarChart3 },
 ]
 
 export function Sidebar({ active, onSelect }) {
@@ -21,7 +24,7 @@ export function Sidebar({ active, onSelect }) {
         </div>
       </div>
 
-      <nav className="flex flex-1 flex-col gap-1">
+      <nav className="flex flex-1 flex-col gap-1 overflow-y-auto">
         {NAV_ITEMS.map(({ key, label, icon: Icon }) => {
           const isActive = active === key
           return (
@@ -42,10 +45,8 @@ export function Sidebar({ active, onSelect }) {
       </nav>
 
       <div className="rounded-lg border border-base-700 bg-base-850 px-3 py-2.5 text-[11px] text-slate-500">
-        Data source: <span className="text-slate-400">data/logs.json</span>
-        <br />
-        Edit the file directly, or use "Copy JSON" in any log form to persist a
-        new entry.
+        Practice pages are for learning. <span className="text-slate-400">Progress</span> tracks real test scores.
+        Data source: <span className="text-slate-400">data/logs.json</span> + your browser's local storage.
       </div>
     </aside>
   )

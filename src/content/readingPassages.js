@@ -1,0 +1,195 @@
+// Original short reading passages (not sourced from copyrighted test material)
+// with IELTS-style comprehension questions covering TFNG, multiple choice,
+// and sentence/summary completion.
+
+export const READING_PASSAGES = [
+  {
+    id: 'rp-1',
+    title: 'The Hidden Life of Urban Bees',
+    text: `Cities are not the first place people picture when they think of thriving wildlife, yet rooftops and balconies across the world now host thousands of beehives. Urban beekeeping began as a niche hobby but has grown into a genuine movement, driven partly by concern over declining bee populations in the countryside. Ironically, some studies suggest that city bees are healthier than their rural counterparts. Urban gardens, parks, and even roadside verges offer a surprising diversity of flowering plants across a long season, whereas rural bees often depend on a single crop that blooms briefly and is frequently treated with pesticides. Municipal governments have taken notice: several major cities now offer subsidies for rooftop hives and have planted pollinator-friendly species along public streets. Critics, however, warn that the trend can be overdone. In neighborhoods with too many hives, bees may compete for limited flowers, and inexperienced keepers can inadvertently spread disease between colonies. Experts recommend that anyone considering a hive first assess the local flower supply and connect with an experienced mentor. Despite these caveats, most researchers agree that, managed responsibly, urban beekeeping offers a rare example of a hobby that benefits both individual wellbeing and the wider ecosystem.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'City bees are always less healthy than bees living in the countryside.', answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Some cities financially support residents who keep rooftop hives.', answer: 'TRUE' },
+      { id: 'q3', type: 'tfng', prompt: 'All beekeeping experts believe cities should have unlimited numbers of hives.', answer: 'NOT GIVEN' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'According to the passage, why might rural bees be less healthy than urban bees?',
+        options: [
+          'Rural areas have fewer flowers overall',
+          'Rural bees rely on one short-blooming crop often treated with pesticides',
+          'Rural beekeepers are less experienced',
+          'Rural bees face more disease from crowding',
+        ],
+        answer: 'Rural bees rely on one short-blooming crop often treated with pesticides',
+      },
+      {
+        id: 'q5',
+        type: 'completion',
+        prompt: 'Before setting up a hive, experts suggest checking the local ____ and finding an experienced mentor.',
+        answer: 'flower supply',
+      },
+    ],
+  },
+  {
+    id: 'rp-2',
+    title: 'Rethinking Sleep',
+    text: `For much of the twentieth century, sleep was treated as a passive state — a simple shutting down of the brain until morning. Recent research has overturned this view entirely. Brain-imaging studies now show that sleep is a highly active process, during which the brain clears out metabolic waste, consolidates memories, and rehearses skills learned during the day. One particularly striking discovery concerns the glymphatic system, a network that becomes far more active during deep sleep and flushes toxic proteins from brain tissue, including some linked to neurodegenerative disease. This has led some scientists to argue that chronic sleep deprivation should be treated as a serious public health issue rather than a minor inconvenience. Workplace culture, however, has been slow to adapt. Long hours and early start times remain common, despite evidence that most adults perform better cognitively after seven to nine hours of sleep. A handful of companies have experimented with nap rooms and flexible start times, reporting improvements in staff concentration and mood. Sleep scientists caution that there is no universal formula: individual sleep needs vary, and the quality of sleep matters as much as its duration. Even so, the consensus is clear — sleep is not lost time, but essential maintenance.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'Scientists once viewed sleep as an inactive state of the brain.', answer: 'TRUE' },
+      { id: 'q2', type: 'tfng', prompt: 'The glymphatic system is more active while a person is awake than while asleep.', answer: 'FALSE' },
+      { id: 'q3', type: 'tfng', prompt: 'Every adult requires exactly eight hours of sleep to function well.', answer: 'NOT GIVEN' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'What did companies that introduced nap rooms report?',
+        options: ['Lower revenue', 'No measurable change', 'Better staff concentration and mood', 'Increased staff turnover'],
+        answer: 'Better staff concentration and mood',
+      },
+      {
+        id: 'q5',
+        type: 'completion',
+        prompt: 'The glymphatic system removes toxic proteins linked to ____ disease.',
+        answer: 'neurodegenerative',
+      },
+    ],
+  },
+  {
+    id: 'rp-3',
+    title: 'The Roads That Built an Empire',
+    text: `At its height, the Roman road network stretched for more than 400,000 kilometers, connecting the empire from Britain to North Africa. These roads were far more than simple dirt tracks. Engineers laid multiple layers of stone, gravel, and sand, often crowning the surface slightly so that rainwater would drain to either side — a design principle still used in modern road construction. The primary purpose was military: legions needed to move quickly to defend or expand the empire's borders. Yet the roads soon became essential to trade and communication as well, allowing goods, letters, and news to travel at unprecedented speed. Way stations were built at regular intervals, offering fresh horses and lodging to official messengers, who could cover up to 80 kilometers a day. The economic impact was significant; regions connected by good roads saw markets flourish, since merchants no longer needed to rely on unpredictable coastal shipping alone. Remarkably, some sections of these ancient roads remain visible, and a few are still walked by hikers today. Historians often cite the road network as one of the clearest examples of infrastructure shaping the destiny of a civilization, enabling a level of political and economic integration that would not be matched in Europe for well over a thousand years.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'The main original purpose of Roman roads was trade rather than military movement.', answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Roman road surfaces were built with a slight slope to help water drain away.', answer: 'TRUE' },
+      { id: 'q3', type: 'tfng', prompt: 'Every section of the Roman road network has now disappeared.', answer: 'FALSE' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'What did way stations provide to official messengers?',
+        options: ['Military escorts', 'Fresh horses and lodging', 'Maps of the empire', 'Free trade goods'],
+        answer: 'Fresh horses and lodging',
+      },
+      {
+        id: 'q5',
+        type: 'completion',
+        prompt: 'Messengers using the road network could travel up to ____ kilometers in a day.',
+        answer: '80',
+      },
+    ],
+  },
+  {
+    id: 'rp-4',
+    title: 'Grid of the Future',
+    text: `Electricity grids were designed for a world of predictable, centralized power stations, not the fluctuating output of solar panels and wind turbines. As renewable energy has grown from a marginal contributor to a major source of electricity in many countries, grid operators have faced a fundamental challenge: supply and demand must be balanced every second, yet the sun does not always shine and the wind does not always blow. One widely discussed solution is the "smart grid," which uses sensors and real-time data to shift electricity to where it is needed and to store surplus energy in batteries for later use. Some utilities have begun paying households with solar panels and battery storage to feed power back into the network during peak demand, effectively turning homes into small power plants. Large-scale battery storage projects have also expanded rapidly, with costs falling faster than most analysts predicted a decade ago. Skeptics point out that batteries currently store only a fraction of what would be needed during a prolonged period of low wind and cloud cover, and that grid upgrades are expensive and slow to build. Even so, most energy planners now regard flexible, decentralized grids as inevitable, arguing that the question is no longer whether such systems will be built, but how quickly.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'Traditional electricity grids were originally built around centralized power stations.', answer: 'TRUE' },
+      { id: 'q2', type: 'tfng', prompt: 'Battery storage costs have risen faster than expected over the past decade.', answer: 'FALSE' },
+      { id: 'q3', type: 'tfng', prompt: 'Current battery storage can fully cover a long period without sun or wind.', answer: 'FALSE' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'What do some utilities pay households with solar panels to do?',
+        options: [
+          'Reduce their electricity usage permanently',
+          'Feed surplus power back into the grid during peak demand',
+          'Install a second set of panels',
+          'Switch entirely off the main grid',
+        ],
+        answer: 'Feed surplus power back into the grid during peak demand',
+      },
+      { id: 'q5', type: 'completion', prompt: 'A "____" grid uses sensors and real-time data to shift electricity where it is needed.', answer: 'smart' },
+    ],
+  },
+  {
+    id: 'rp-5',
+    title: 'Smarter Than We Thought',
+    text: `Octopuses have long fascinated scientists, not least because their intelligence evolved along a completely different path from that of mammals and birds. Roughly two-thirds of an octopus's neurons are located not in its central brain but distributed throughout its eight arms, allowing each arm to process sensory information and even make decisions somewhat independently. In laboratory experiments, octopuses have learned to open childproof jars to reach food, navigate mazes, and recognize individual human keepers, sometimes squirting water at people they seem to dislike. Perhaps most striking is their capacity for observational learning: in one well-known study, an octopus that watched another successfully solve a puzzle box was able to solve the same box far more quickly than an octopus given no demonstration. This is remarkable for a solitary animal with an average lifespan of only one to two years, since such short-lived creatures might be expected to gain little evolutionary benefit from complex learning. Some researchers argue that octopus intelligence evolved primarily to compensate for the loss of a protective shell, forcing the animal to rely on cunning and camouflage rather than armor to survive. Whatever the explanation, octopuses continue to challenge simple assumptions about which kinds of animals are capable of sophisticated thought.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'Most of an octopus\'s neurons are located in its central brain.', answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Octopuses have been observed learning by watching another octopus solve a task.', answer: 'TRUE' },
+      { id: 'q3', type: 'tfng', prompt: 'Octopuses typically live for more than ten years.', answer: 'FALSE' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'What is one theory for why octopus intelligence evolved?',
+        options: [
+          'To help them live in large social groups',
+          'To compensate for the loss of a protective shell',
+          'To help them migrate long distances',
+          'To allow communication with other species',
+        ],
+        answer: 'To compensate for the loss of a protective shell',
+      },
+      { id: 'q5', type: 'completion', prompt: 'Each octopus arm can process sensory information and make decisions somewhat ____.', answer: 'independently' },
+    ],
+  },
+  {
+    id: 'rp-6',
+    title: 'The Office Reimagined',
+    text: `When large numbers of employees were sent home in 2020, most organizations treated remote work as a temporary emergency measure. Several years on, it has become a permanent feature of working life for a significant share of the workforce, prompting companies to rethink the purpose of a physical office altogether. Surveys consistently show that employees value the flexibility of working from home, particularly the time saved on commuting, but many also report feeling more isolated and find it harder to separate work from personal life. In response, some companies have redesigned their offices to focus less on individual desks and more on collaborative spaces, reasoning that if routine tasks can be done from anywhere, the office's remaining purpose is to support the kind of spontaneous conversation and mentorship that video calls struggle to replicate. Others have adopted a hybrid model, requiring staff to be present on specific days chosen to maximize overlap between teams. Critics of hybrid schedules argue that mandating fixed office days can feel arbitrary if it is not tied to a clear collaborative purpose. Economists are also watching the knock-on effects on cities, as reduced office attendance has hit businesses that once relied on commuters, from sandwich shops to dry cleaners, forcing many town centers to reconsider their own function.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'Remote work has remained purely a temporary emergency measure for most companies.', answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Employees uniformly report no downsides to working from home.', answer: 'FALSE' },
+      { id: 'q3', type: 'tfng', prompt: 'Some businesses near offices have been financially affected by reduced commuting.', answer: 'TRUE' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'Why have some companies redesigned offices around collaborative spaces?',
+        options: [
+          'To reduce the number of employees',
+          'Because routine tasks can be done remotely, leaving collaboration as the office\'s main purpose',
+          'To save money on rent',
+          'Because employees requested more desks',
+        ],
+        answer: 'Because routine tasks can be done remotely, leaving collaboration as the office\'s main purpose',
+      },
+      { id: 'q5', type: 'completion', prompt: 'Hybrid models require staff to be present on days chosen to maximize ____ between teams.', answer: 'overlap' },
+    ],
+  },
+  {
+    id: 'rp-7',
+    title: 'From Silence to Community',
+    text: `Public libraries were once defined by a single, unspoken rule: silence. Today, many have been transformed into some of the busiest community spaces in a city, hosting everything from coding classes to job-search workshops and children's puppet shows. This shift reflects a broader rethinking of the library's purpose. As more information became freely available online, some questioned whether physical libraries were still necessary. Librarians and city planners responded not by defending the old model, but by redefining it: a library, they argued, was never really about books alone, but about equal access to knowledge, technology, and public space. This has proven especially valuable for people without reliable internet access at home, who can now use library computers to apply for jobs or complete school assignments. Many libraries have also become de facto social service hubs, with staff trained to help visitors facing homelessness or mental health crises, a role librarians rarely anticipated when they entered the profession. Not everyone has welcomed the change; some traditionalists worry that libraries risk losing their identity as quiet spaces for reading and reflection. Most library systems have tried to address this by offering both quiet reading rooms and louder communal areas, betting that the future of the public library lies in serving many different needs under one roof.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: 'Libraries today only offer traditional book-lending services.', answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Library staff sometimes assist visitors dealing with homelessness.', answer: 'TRUE' },
+      { id: 'q3', type: 'tfng', prompt: 'All librarians agree that quiet reading spaces should be removed entirely.', answer: 'NOT GIVEN' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'Why are library computers especially valuable to some visitors?',
+        options: [
+          'They are faster than most home computers',
+          'They provide access for people without reliable internet at home',
+          'They are only available to students',
+          'They replace the need for librarians',
+        ],
+        answer: 'They provide access for people without reliable internet at home',
+      },
+      { id: 'q5', type: 'completion', prompt: 'Many libraries now offer both quiet reading rooms and louder ____ areas.', answer: 'communal' },
+    ],
+  },
+  {
+    id: 'rp-8',
+    title: 'The Bitter Bean',
+    text: `Coffee's rise from a regional curiosity to the world's second most traded commodity is a story shaped as much by politics as by taste. According to popular legend, its stimulating effects were discovered in Ethiopia after a goat herder noticed his animals became unusually energetic after eating certain berries. Whether or not the story is accurate, coffee cultivation had spread to the Arabian Peninsula by the fifteenth century, where it became central to social life in coffeehouses that also served as hubs for political discussion — so much so that rulers in some regions banned coffeehouses, fearing they encouraged dissent. European colonial powers later transplanted coffee cultivation to the Americas and parts of Asia, often relying on forced labor, a legacy that still shapes debates about fair trade in the industry today. By the twentieth century, coffee had become deeply embedded in daily routines across much of the world, and its price could influence the economic fortunes of entire nations dependent on export revenue. In recent decades, the rise of "fair trade" and "direct trade" certification schemes has attempted to ensure growers receive a larger share of the final retail price, though critics argue that certification alone cannot resolve deeper structural inequalities in global supply chains.`,
+    questions: [
+      { id: 'q1', type: 'tfng', prompt: "Coffee cultivation began in the Arabian Peninsula, according to the passage.", answer: 'FALSE' },
+      { id: 'q2', type: 'tfng', prompt: 'Some rulers banned coffeehouses because they feared political dissent.', answer: 'TRUE' },
+      { id: 'q3', type: 'tfng', prompt: 'Fair trade certification has completely solved inequality in coffee supply chains.', answer: 'FALSE' },
+      {
+        id: 'q4',
+        type: 'mcq',
+        prompt: 'How did coffee cultivation spread to the Americas, according to the passage?',
+        options: [
+          'Through voluntary migration of Ethiopian farmers',
+          'Via European colonial powers, often using forced labor',
+          'Through modern fair trade programs',
+          'By accident, via trade ships',
+        ],
+        answer: 'Via European colonial powers, often using forced labor',
+      },
+      { id: 'q5', type: 'completion', prompt: 'Coffee is often described as the world\'s second most traded ____.', answer: 'commodity' },
+    ],
+  },
+]

@@ -4,10 +4,11 @@ Status: **Active Prep**
 
 ## What this is
 
-A personal IELTS preparation dashboard: a local React + Vite app that
-tracks practice test scores, gamified daily study streaks/XP, and
-module-wise progress across Listening, Reading, Writing (Academic &
-General Training), and Speaking — all backed by a single local JSON file.
+A local IELTS **practice** app — the main point is to actually *do* drills,
+not just log scores. React + Vite dashboard with gamified practice content
+for every exam section, a generated day-by-day study plan, and a
+spaced-repetition vocabulary trainer. Real mock-test results still get
+logged, but in a secondary Progress tab, not the main flow.
 
 ## Target scores
 
@@ -16,25 +17,45 @@ General Training), and Speaking — all backed by a single local JSON file.
 | **Target** | **8.5** | 9.0 | 8.5 | 8.0 | 8.0 |
 | **Latest mock** (Progress Mock #3, 2026-09-10) | 7.5 | 8.0 | 7.5 | 7.0 | 7.5 |
 
-**Target test date:** October 15, 2026 — see the live countdown on the
-dashboard's Overview tab.
+**Target test date:** October 15, 2026 — live countdown on the Overview tab.
 
-## Section logs
+## Pages
 
-Score history lives in [`data/logs.json`](data/logs.json), seeded with 3
-sample mock tests showing progression (6.5 → 7.0 → 7.5) plus sample entries
-across writing, reading, listening, and speaking. See
-[CLAUDE.md](CLAUDE.md) for the full data schema and how new entries get
-added.
+- **Overview** — XP/level/streak header, today's study-plan tasks, quick
+  links into every practice page, a compact band snapshot.
+- **Study Plan** — a systematic day-by-day plan from today to test day:
+  rotates through Reading/Listening/Writing/Speaking focus days, mixed
+  drills, review days, and a mock test every 10 days, tapering to light
+  review just before the exam. Checkable tasks award XP.
+- **Vocabulary** — 100 words across 10 themed sets, flashcards with a
+  5-box spaced-repetition (Leitner) system. Words you know move further
+  out on the schedule; words you miss come back tomorrow.
+- **Writing** — pick a prompt (Academic Task 1 includes a real chart,
+  rendered live), write against a timer with live word count, then
+  self-assess against TR/CC/LR/GRA for a computed band.
+- **Reading** — 8 original passages with True/False/Not Given, multiple
+  choice, and summary-completion questions, graded inline.
+- **Listening** — 8 scripts read aloud in-browser via text-to-speech
+  (covers all 4 section types) plus an interactive map-labeling drill for
+  spatial/direction questions.
+- **Speaking** — Part 1/2/3 practice sets with real exam timing (60s prep
+  / 2min speak for Part 2) and optional mic recording for self-playback.
+- **Progress** — the score-tracking half of the original build: mock-test
+  radar/progression charts plus per-skill score logging forms, for when
+  you actually sit a mock test or get evaluated feedback.
 
 ## Tech stack
 
-- React 18 + Vite 5
-- Tailwind CSS (dark mode)
-- Recharts (radar chart, line/bar charts)
+- React 18 + Vite 5, Tailwind CSS (dark mode only)
+- Recharts (radar/line/bar charts, Writing Task 1 visuals)
 - lucide-react (icons)
-- No backend — `data/logs.json` is read at build/dev time via a static
-  import; see CLAUDE.md for the persistence model.
+- Web Speech API (Listening text-to-speech) and MediaRecorder API
+  (Speaking mic recording) — both degrade gracefully if unsupported
+- No backend. Two separate persistence layers — see CLAUDE.md:
+  - `data/logs.json` — real mock-test scores (Progress tab), static import,
+    edited by hand or via "Copy JSON" buttons
+  - browser `localStorage` — practice completion, vocab spaced-repetition
+    state, study-plan checkboxes (durable per-browser, not in the repo)
 
 ## Running it
 
@@ -45,33 +66,22 @@ npm run build    # production build → dist/
 ```
 
 Verified: `npm install`, `npm run build`, and `npm run dev` all complete
-without errors as of the last setup pass.
-
-## Dashboard sections
-
-- **Overview** — countdown to test day, XP/level/streak header, target-vs-
-  estimated band radar chart, mock test progression chart.
-- **Writing** — Academic/General Training toggle, TR/CC/LR/GRA score
-  entry form with live computed band, entry history per track.
-- **Reading** — accuracy by question type (TFNG, Matching Headings,
-  Summary Completion, etc.), root-cause error log.
-- **Listening** — Section 1–4 score tracker, interactive map-labeling
-  direction/spatial drill.
-- **Speaking** — Part 1/2/3 transcript logger with FC/LR/GRA/Pronunciation
-  scoring and computed band.
+without errors, and every module in the app was smoke-tested via the dev
+server after the practice-first rebuild (Sept 2026).
 
 ## Next steps
 
 - [x] Scaffold repo structure (README, CLAUDE.md, src/, data/logs.json)
-- [x] Build core dashboard UI across all 5 sections
+- [x] Rebuild as a practice-first app: gamified drills per section, a
+      generated day-by-day study plan, and a vocabulary page
 - [x] Verify `npm install` / `npm run build` / `npm run dev` run clean
-- [ ] Swap the map-labeling drill's sample floor plan for a real one from
-      `Prep Resources/` audio materials
-- [ ] Run an initial full diagnostic mock and log it as `mt-4`
-- [ ] Mine `Prep Resources/` PDFs for a structured study plan (requires
-      installing `poppler-utils` to extract text — ask Claude to do this)
-- [ ] Decide Academic vs. General Training as the actual sitting (currently
-      both tracks are kept live)
+- [x] Push to GitHub (private repo, `Prep Resources/` excluded)
+- [ ] Expand content pools (more reading passages, listening scripts,
+      writing prompts, speaking sets) as the current ones get used up
+- [ ] Consider real-time grading feedback for writing (would need an LLM
+      backend — out of scope for a static frontend today)
+- [ ] Decide Academic vs. General Training as the actual sitting (both
+      tracks currently kept live)
 
 ## Links
 

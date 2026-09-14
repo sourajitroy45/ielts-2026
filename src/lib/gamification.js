@@ -18,10 +18,10 @@ function addDays(d, days) {
   return copy
 }
 
-export function computeXp(data) {
+export function computeXp(data, bonusXp = 0) {
   const studyXp = (data.studyLog ?? []).reduce((sum, e) => sum + (e.xp ?? 0), 0)
   const mockXp = (data.mockTests ?? []).length * XP_PER_MOCK_TEST
-  return studyXp + mockXp
+  return studyXp + mockXp + bonusXp
 }
 
 export function computeLevel(xp) {
@@ -30,8 +30,8 @@ export function computeLevel(xp) {
   return { level, xpIntoLevel, xpForNextLevel: XP_PER_LEVEL, progress: xpIntoLevel / XP_PER_LEVEL }
 }
 
-export function computeStreak(studyLog, today = new Date()) {
-  const uniqueDates = [...new Set((studyLog ?? []).map((e) => e.date))].sort().reverse()
+export function computeStreak(studyLog, today = new Date(), extraDates = []) {
+  const uniqueDates = [...new Set([...(studyLog ?? []).map((e) => e.date), ...extraDates])].sort().reverse()
   if (uniqueDates.length === 0) return 0
 
   const todayStr = toLocalISODate(today)
