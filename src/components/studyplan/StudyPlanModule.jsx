@@ -7,11 +7,11 @@ import { useNavigation } from '../../lib/NavigationContext.jsx'
 import { generateStudyPlan } from '../../lib/studyPlan.js'
 
 const TYPE_COLOR = {
-  reading: 'text-sky-400 bg-sky-500/10',
-  listening: 'text-indigo-400 bg-indigo-500/10',
+  reading: 'text-terracotta-400 bg-terracotta-500/10',
+  listening: 'text-olive-400 bg-olive-500/10',
   writing: 'text-amber-400 bg-amber-500/10',
-  speaking: 'text-pink-400 bg-pink-500/10',
-  'mixed-rl': 'text-teal-400 bg-teal-500/10',
+  speaking: 'text-clay-400 bg-clay-500/10',
+  'mixed-rl': 'text-sage-400 bg-sage-500/10',
   'mixed-ws': 'text-orange-400 bg-orange-500/10',
   review: 'text-slate-400 bg-slate-500/10',
   'mock-test': 'text-rose-400 bg-rose-500/10',

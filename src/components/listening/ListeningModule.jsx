@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2, Headphones } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
+import { TechniqueGuide } from '../shared/TechniqueGuide.jsx'
 import { LISTENING_SCRIPTS } from '../../content/listeningScripts.js'
 import { useProgress } from '../../lib/progressStore.jsx'
 import { ScriptRunner } from './ScriptRunner.jsx'
@@ -25,6 +26,8 @@ export function ListeningModule() {
         </p>
       </div>
 
+      <TechniqueGuide skill="listening" />
+
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {LISTENING_SCRIPTS.map((s) => {
           const done = isContentDone('listening', s.id)
@@ -34,7 +37,7 @@ export function ListeningModule() {
               <Card className="h-full transition-colors hover:border-amber-500/40">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <Headphones size={16} className="text-indigo-400" />
+                    <Headphones size={16} className="text-olive-400" />
                     <span className="font-semibold text-slate-100">{s.title}</span>
                   </div>
                   {done && <CheckCircle2 size={16} className="text-emerald-400" />}

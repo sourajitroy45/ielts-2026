@@ -4,19 +4,19 @@
 
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
   }
   body {
     @apply bg-base-950 text-slate-100 antialiased;
   }
   ::selection {
-    @apply bg-amber-500/30;
+    @apply bg-amber-400/25;
   }
 }
 
 @layer components {
   .card {
-    @apply bg-base-900 border border-base-700 rounded-2xl shadow-lg shadow-black/20;
+    @apply bg-base-900 border border-base-700 rounded-2xl shadow-md shadow-amber-900/5;
   }
   .stat-chip {
     @apply flex items-center gap-2 rounded-xl border border-base-700 bg-base-850 px-3 py-2;

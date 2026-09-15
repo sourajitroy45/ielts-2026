@@ -10,6 +10,7 @@ import {
 } from 'recharts'
 import { Radar as RadarIcon } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
+import { CHART_GRID_STROKE, CHART_AXIS_TICK, CHART_AXIS_TICK_SM, CHART_TOOLTIP_STYLE, CHART_TOOLTIP_LABEL, CHART_LEGEND_STYLE } from '../../lib/chartTheme.js'
 
 export function BandRadarChart({ latestMock, targetBands, targetOverall, latestOverall }) {
   const skills = ['listening', 'reading', 'writing', 'speaking']
@@ -32,16 +33,13 @@ export function BandRadarChart({ latestMock, targetBands, targetOverall, latestO
       <div className="h-72 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <RadarChart data={chartData} outerRadius="75%">
-            <PolarGrid stroke="#282f3a" />
-            <PolarAngleAxis dataKey="skill" tick={{ fill: '#94a3b8', fontSize: 12 }} />
-            <PolarRadiusAxis angle={30} domain={[0, 9]} tick={{ fill: '#64748b', fontSize: 10 }} />
-            <Radar name="Target" dataKey="Target" stroke="#64748b" fill="#64748b" fillOpacity={0.15} strokeDasharray="4 3" />
-            <Radar name="Current" dataKey="Current" stroke="#f59e0b" fill="#f59e0b" fillOpacity={0.35} />
-            <Legend wrapperStyle={{ fontSize: 12, color: '#94a3b8' }} />
-            <Tooltip
-              contentStyle={{ background: '#161a20', border: '1px solid #282f3a', borderRadius: 8, fontSize: 12 }}
-              labelStyle={{ color: '#e2e8f0' }}
-            />
+            <PolarGrid stroke={CHART_GRID_STROKE} />
+            <PolarAngleAxis dataKey="skill" tick={{ ...CHART_AXIS_TICK, fontSize: 12 }} />
+            <PolarRadiusAxis angle={30} domain={[0, 9]} tick={CHART_AXIS_TICK_SM} />
+            <Radar name="Target" dataKey="Target" stroke="#a89572" fill="#a89572" fillOpacity={0.15} strokeDasharray="4 3" />
+            <Radar name="Current" dataKey="Current" stroke="#6b4423" fill="#6b4423" fillOpacity={0.35} />
+            <Legend wrapperStyle={{ ...CHART_LEGEND_STYLE, fontSize: 12 }} />
+            <Tooltip contentStyle={CHART_TOOLTIP_STYLE} labelStyle={CHART_TOOLTIP_LABEL} />
           </RadarChart>
         </ResponsiveContainer>
       </div>

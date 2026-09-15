@@ -31,7 +31,7 @@ export function VocabularyModule() {
       <div>
         <h2 className="text-lg font-bold text-slate-100">Vocabulary</h2>
         <p className="text-sm text-slate-500">
-          Spaced-repetition flashcards across 10 themed sets ({ALL_VOCAB_WORDS.length} words). Words you know move
+          Spaced-repetition flashcards across {VOCAB_SETS.length} themed sets ({ALL_VOCAB_WORDS.length} words). Words you know move
           further out on the review schedule; words you're still learning come back tomorrow.
         </p>
       </div>

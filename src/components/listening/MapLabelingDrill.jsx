@@ -61,12 +61,12 @@ export function MapLabelingDrill() {
 
       <div className="grid grid-cols-1 gap-5 lg:grid-cols-2">
         <svg viewBox="0 0 320 220" className="w-full rounded-lg border border-base-700 bg-base-850">
-          <rect x="10" y="10" width="300" height="200" rx="6" fill="none" stroke="#3a4453" strokeWidth="1.5" />
-          <line x1="160" y1="10" x2="160" y2="210" stroke="#282f3a" strokeWidth="1" />
-          <line x1="10" y1="110" x2="310" y2="110" stroke="#282f3a" strokeWidth="1" />
+          <rect x="10" y="10" width="300" height="200" rx="6" fill="none" stroke="#8a7355" strokeWidth="1.5" />
+          <line x1="160" y1="10" x2="160" y2="210" stroke="#d3b98c" strokeWidth="1" />
+          <line x1="10" y1="110" x2="310" y2="110" stroke="#d3b98c" strokeWidth="1" />
           {POINTS.map((p) => {
             const state = checked ? (answers[p.n] === p.answer ? 'correct' : 'wrong') : 'idle'
-            const fill = state === 'correct' ? '#10b981' : state === 'wrong' ? '#f43f5e' : '#f59e0b'
+            const fill = state === 'correct' ? '#10b981' : state === 'wrong' ? '#f43f5e' : '#8a5a2b'
             return (
               <g key={p.n}>
                 <circle cx={p.x} cy={p.y} r="12" fill={fill} fillOpacity="0.2" stroke={fill} strokeWidth="1.5" />

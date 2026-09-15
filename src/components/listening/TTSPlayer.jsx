@@ -51,7 +51,7 @@ export function TTSPlayer({ text, mode = 'exam' }) {
 
   return (
     <div className="flex flex-wrap items-center gap-3 rounded-lg border border-base-700 bg-base-850 p-3">
-      <Volume2 size={16} className="text-indigo-400" />
+      <Volume2 size={16} className="text-olive-400" />
 
       {state === 'idle' && (
         <button className="btn-primary !px-3 !py-1.5" onClick={play}>

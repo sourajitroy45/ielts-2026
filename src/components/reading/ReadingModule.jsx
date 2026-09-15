@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { BookOpen, CheckCircle2 } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
+import { TechniqueGuide } from '../shared/TechniqueGuide.jsx'
 import { READING_PASSAGES } from '../../content/readingPassages.js'
 import { useProgress } from '../../lib/progressStore.jsx'
 import { PassageRunner } from './PassageRunner.jsx'
@@ -24,6 +25,8 @@ export function ReadingModule() {
         </p>
       </div>
 
+      <TechniqueGuide skill="reading" />
+
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {READING_PASSAGES.map((p) => {
           const done = isContentDone('reading', p.id)
@@ -33,7 +36,7 @@ export function ReadingModule() {
               <Card className="h-full transition-colors hover:border-amber-500/40">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <BookOpen size={16} className="text-sky-400" />
+                    <BookOpen size={16} className="text-terracotta-400" />
                     <span className="font-semibold text-slate-100">{p.title}</span>
                   </div>
                   {done && <CheckCircle2 size={16} className="text-emerald-400" />}

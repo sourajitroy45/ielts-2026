@@ -217,7 +217,50 @@ builds one entry per day from `startDate` to the target date. Same inputs
   `LEITNER_INTERVALS`). Correct recall moves a word up a box (next review
   further out, up to 14 days at box 5 = "mastered"); incorrect resets to
   box 1 (due again tomorrow). "Review" tab shows only due words; "Browse
-  Sets" shows every word's current box across all 10 themed sets.
+  Sets" shows every word's current box across all 12 themed sets.
+- **Embedded technique study material** (`shared/TechniqueGuide.jsx` +
+  `content/techniques.js`): a collapsible "Faster Techniques" panel at
+  the top of each of the 4 skill practice pages (collapsed by default).
+  Content is synthesized from converging advice across established prep
+  sources and community discussion (not fabricated "2026 patterns" — see
+  the content-authoring rule below). Add a new technique by editing
+  `techniques.js` only; the panel component is generic across all 4
+  skills.
+
+## Theme — beige & deep brown
+
+One committed light, warm theme (no dark mode, no toggle — per explicit
+request, 2026-09). Implemented almost entirely in `tailwind.config.js` by
+overriding color scales, not by touching individual components:
+
+- `base` (custom scale) — surfaces: light beige (950, page bg) → tan
+  (700, borders).
+- `slate` (Tailwind's built-in, **overridden**) — repurposed as the text
+  scale: deep brown (100, primary text) → muted tan (600, faintest text).
+  Every existing `text-slate-*` utility across the app re-themed by this
+  one change.
+- `amber` (Tailwind's built-in, **overridden**) — repurposed as the
+  primary accent: espresso brown (500, button fills) → lighter coffee
+  (300). `btn-primary` is `bg-amber-500 text-base-950`, i.e. literally an
+  espresso-brown button with beige text.
+- `terracotta` / `olive` / `clay` / `sage` (new custom colors) — per-
+  section accent icons (Reading / Listening / Speaking / Vocabulary)
+  replacing the old cool sky/indigo/pink/emerald defaults, so section
+  branding stays warm too.
+- Semantic colors are **not** overridden: `emerald` (success/correct) and
+  `rose` (error/incorrect) keep their default Tailwind hues — status
+  meaning should stay universally legible, not be forced into the
+  palette.
+- Recharts components can't consume Tailwind classes (inline `style`/
+  props only), so chart chrome (grid/axis/tooltip) and the categorical
+  series palette live in `src/lib/chartTheme.js` — update colors there,
+  not per-chart-file, if the theme changes again.
+- `index.html` has no `class="dark"`; `index.css` sets
+  `color-scheme: light`.
+
+If asked to change the theme again, prefer editing the color values in
+`tailwind.config.js` + `chartTheme.js` over touching component files —
+that's what makes a full re-theme a small diff instead of a 40-file one.
 
 ## Content authoring rule — do not mine `Prep Resources/`
 
@@ -233,6 +276,17 @@ being too easy) and declined for this reason — the actual fix was
 tightening the app's own content/grading, not sourcing real test audio.
 If asked to expand content, write new original material in the same style
 as the existing `src/content/*.js` files.
+
+`techniques.js` (the "Faster Techniques" study material) is the one
+content file that's explicitly *synthesized advice* rather than original
+exam-style content — sourced from converging guidance across established
+prep sources (IELTS Liz, IELTS Buddy, Cathoven, ieltsetc) and community
+discussion (Reddit r/IELTS threads on timing/prediction), written in this
+app's own words. That's fine — technique advice is generic know-how, not
+copyrightable exam content, unlike the Cambridge material above. Keep
+applying the same research discipline as the Band 9 rework, though:
+prefer converging, well-corroborated advice over any single source's
+claim, especially anything framed as a "2026 pattern."
 
 ## Persistence / verification notes
 

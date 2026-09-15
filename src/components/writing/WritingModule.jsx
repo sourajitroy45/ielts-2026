@@ -2,6 +2,7 @@ import { useMemo, useState } from 'react'
 import { CheckCircle2, PenLine } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
 import { ModuleToggle } from '../shared/ModuleToggle.jsx'
+import { TechniqueGuide } from '../shared/TechniqueGuide.jsx'
 import { WRITING_PROMPTS } from '../../content/writingPrompts.js'
 import { useProgress } from '../../lib/progressStore.jsx'
 import { PromptRunner } from './PromptRunner.jsx'
@@ -27,6 +28,8 @@ export function WritingModule() {
         </div>
         <ModuleToggle value={module} onChange={setModule} />
       </div>
+
+      <TechniqueGuide skill="writing" />
 
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {prompts.map((p) => {

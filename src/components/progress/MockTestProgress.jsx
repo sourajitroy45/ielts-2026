@@ -10,6 +10,7 @@ import {
 } from 'recharts'
 import { TrendingUp } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
+import { CHART_GRID_STROKE, CHART_AXIS_TICK, CHART_TOOLTIP_STYLE, CHART_TOOLTIP_LABEL } from '../../lib/chartTheme.js'
 
 export function MockTestProgress({ mockTests, targetOverall }) {
   const chartData = [...mockTests]
@@ -21,15 +22,12 @@ export function MockTestProgress({ mockTests, targetOverall }) {
       <div className="h-64 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <LineChart data={chartData} margin={{ top: 8, right: 12, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#282f3a" />
-            <XAxis dataKey="date" tick={{ fill: '#64748b', fontSize: 11 }} />
-            <YAxis domain={[4, 9]} tick={{ fill: '#64748b', fontSize: 11 }} />
-            <ReferenceLine y={targetOverall} stroke="#f59e0b" strokeDasharray="4 3" label={{ value: 'Target', fill: '#f59e0b', fontSize: 11, position: 'right' }} />
-            <Tooltip
-              contentStyle={{ background: '#161a20', border: '1px solid #282f3a', borderRadius: 8, fontSize: 12 }}
-              labelStyle={{ color: '#e2e8f0' }}
-            />
-            <Line type="monotone" dataKey="band" stroke="#38bdf8" strokeWidth={2.5} dot={{ r: 4, fill: '#38bdf8' }} />
+            <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID_STROKE} />
+            <XAxis dataKey="date" tick={CHART_AXIS_TICK} />
+            <YAxis domain={[4, 9]} tick={CHART_AXIS_TICK} />
+            <ReferenceLine y={targetOverall} stroke="#6b4423" strokeDasharray="4 3" label={{ value: 'Target', fill: '#6b4423', fontSize: 11, position: 'right' }} />
+            <Tooltip contentStyle={CHART_TOOLTIP_STYLE} labelStyle={CHART_TOOLTIP_LABEL} />
+            <Line type="monotone" dataKey="band" stroke="#a2571d" strokeWidth={2.5} dot={{ r: 4, fill: '#a2571d' }} />
           </LineChart>
         </ResponsiveContainer>
       </div>

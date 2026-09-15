@@ -3,10 +3,10 @@ import { useNavigation } from '../../lib/NavigationContext.jsx'
 
 const LINKS = [
   { key: 'writing', label: 'Writing', icon: PenLine, color: 'text-amber-400 bg-amber-500/10' },
-  { key: 'reading', label: 'Reading', icon: BookOpen, color: 'text-sky-400 bg-sky-500/10' },
-  { key: 'listening', label: 'Listening', icon: Headphones, color: 'text-indigo-400 bg-indigo-500/10' },
-  { key: 'speaking', label: 'Speaking', icon: Mic, color: 'text-pink-400 bg-pink-500/10' },
-  { key: 'vocabulary', label: 'Vocabulary', icon: BookMarked, color: 'text-emerald-400 bg-emerald-500/10' },
+  { key: 'reading', label: 'Reading', icon: BookOpen, color: 'text-terracotta-400 bg-terracotta-500/10' },
+  { key: 'listening', label: 'Listening', icon: Headphones, color: 'text-olive-400 bg-olive-500/10' },
+  { key: 'speaking', label: 'Speaking', icon: Mic, color: 'text-clay-400 bg-clay-500/10' },
+  { key: 'vocabulary', label: 'Vocabulary', icon: BookMarked, color: 'text-sage-400 bg-sage-500/10' },
 ]
 
 export function QuickLinks() {

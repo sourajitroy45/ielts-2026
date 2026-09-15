@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { CheckCircle2, Mic } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
+import { TechniqueGuide } from '../shared/TechniqueGuide.jsx'
 import { SPEAKING_SETS } from '../../content/speakingCueCards.js'
 import { useProgress } from '../../lib/progressStore.jsx'
 import { CueCardRunner } from './CueCardRunner.jsx'
@@ -24,6 +25,8 @@ export function SpeakingModule() {
         </p>
       </div>
 
+      <TechniqueGuide skill="speaking" />
+
       <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
         {SPEAKING_SETS.map((s) => {
           const done = isContentDone('speaking', s.id)
@@ -32,7 +35,7 @@ export function SpeakingModule() {
               <Card className="h-full transition-colors hover:border-amber-500/40">
                 <div className="flex items-start justify-between gap-2">
                   <div className="flex items-center gap-2">
-                    <Mic size={16} className="text-pink-400" />
+                    <Mic size={16} className="text-clay-400" />
                     <span className="font-semibold text-slate-100">{s.theme}</span>
                   </div>
                   {done && <CheckCircle2 size={16} className="text-emerald-400" />}

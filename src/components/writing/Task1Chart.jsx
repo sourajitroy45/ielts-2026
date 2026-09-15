@@ -1,6 +1,5 @@
 import { Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts'
-
-const COLORS = ['#f59e0b', '#38bdf8', '#a78bfa', '#f472b6', '#34d399', '#fb923c']
+import { CHART_COLORS, CHART_GRID_STROKE, CHART_AXIS_TICK, CHART_TOOLTIP_STYLE, CHART_TOOLTIP_LABEL, CHART_LEGEND_STYLE } from '../../lib/chartTheme.js'
 
 export function Task1Chart({ chart }) {
   if (!chart) return null
@@ -12,10 +11,10 @@ export function Task1Chart({ chart }) {
           <PieChart>
             <Pie data={chart.data} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={85} label={({ name, value }) => `${name} ${value}${chart.unit ?? ''}`}>
               {chart.data.map((_, i) => (
-                <Cell key={i} fill={COLORS[i % COLORS.length]} />
+                <Cell key={i} fill={CHART_COLORS[i % CHART_COLORS.length]} />
               ))}
             </Pie>
-            <Tooltip contentStyle={{ background: '#161a20', border: '1px solid #282f3a', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#e2e8f0' }} />
+            <Tooltip contentStyle={CHART_TOOLTIP_STYLE} labelStyle={CHART_TOOLTIP_LABEL} />
           </PieChart>
         </ResponsiveContainer>
       </div>
@@ -28,16 +27,16 @@ export function Task1Chart({ chart }) {
     <div className="h-64 w-full rounded-lg border border-base-700 bg-base-850 p-2">
       <ResponsiveContainer width="100%" height="100%">
         <ChartComp data={chart.data} margin={{ top: 10, right: 12, left: -20, bottom: 0 }}>
-          <CartesianGrid strokeDasharray="3 3" stroke="#282f3a" />
-          <XAxis dataKey={chart.xKey} tick={{ fill: '#64748b', fontSize: 11 }} />
-          <YAxis tick={{ fill: '#64748b', fontSize: 11 }} unit={chart.unit} />
-          <Tooltip contentStyle={{ background: '#161a20', border: '1px solid #282f3a', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#e2e8f0' }} />
-          <Legend wrapperStyle={{ fontSize: 11, color: '#94a3b8' }} />
+          <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID_STROKE} />
+          <XAxis dataKey={chart.xKey} tick={CHART_AXIS_TICK} />
+          <YAxis tick={CHART_AXIS_TICK} unit={chart.unit} />
+          <Tooltip contentStyle={CHART_TOOLTIP_STYLE} labelStyle={CHART_TOOLTIP_LABEL} />
+          <Legend wrapperStyle={CHART_LEGEND_STYLE} />
           {chart.series.map((s, i) =>
             chart.type === 'line' ? (
-              <Line key={s} type="monotone" dataKey={s} stroke={COLORS[i % COLORS.length]} strokeWidth={2} dot={{ r: 3 }} />
+              <Line key={s} type="monotone" dataKey={s} stroke={CHART_COLORS[i % CHART_COLORS.length]} strokeWidth={2} dot={{ r: 3 }} />
             ) : (
-              <Bar key={s} dataKey={s} fill={COLORS[i % COLORS.length]} />
+              <Bar key={s} dataKey={s} fill={CHART_COLORS[i % CHART_COLORS.length]} />
             )
           )}
         </ChartComp>

@@ -37,7 +37,7 @@ export function PassageRunner({ passage, onDone }) {
             return (
               <div key={q.id}>
                 <div className="mb-1.5 flex items-start justify-between gap-2">
-                  {q.label && <span className="pill bg-sky-500/10 text-sky-400">{q.label}</span>}
+                  {q.label && <span className="pill bg-terracotta-500/10 text-terracotta-400">{q.label}</span>}
                 </div>
                 <div className="mb-2 flex items-start justify-between gap-2 text-sm text-slate-200">
                   <span>{i + 1}. {q.prompt}</span>

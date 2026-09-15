@@ -5,10 +5,11 @@ Status: **Active Prep**
 ## What this is
 
 A local IELTS **practice** app — the main point is to actually *do* drills,
-not just log scores. React + Vite dashboard with gamified practice content
-for every exam section, a generated day-by-day study plan, and a
-spaced-repetition vocabulary trainer. Real mock-test results still get
-logged, but in a secondary Progress tab, not the main flow.
+not just log scores. React + Vite dashboard, warm beige-and-deep-brown
+theme, with gamified practice content for every exam section, embedded
+"Faster Techniques" study material per skill, a generated day-by-day study
+plan, and a spaced-repetition vocabulary trainer. Real mock-test results
+still get logged, but in a secondary Progress tab, not the main flow.
 
 ## Target scores
 
@@ -28,6 +29,12 @@ unchanged (only delivery mode + retake logistics changed) — several
 "2026 changes" claims circulating in blogs are not corroborated by
 IELTS/IDP and were deliberately not built into this app; see CLAUDE.md
 for the full research note.
+
+Each of the 4 skill practice pages now also has an embedded **"Faster
+Techniques"** panel (collapsed by default, one click to open) — concise,
+actionable technique study material synthesized from converging advice
+across established prep sources and community discussion (not fabricated
+"latest pattern" claims — see the research note above and in CLAUDE.md).
 
 ## Pages
 
@@ -65,7 +72,8 @@ for the full research note.
 
 ## Tech stack
 
-- React 18 + Vite 5, Tailwind CSS (dark mode only)
+- React 18 + Vite 5, Tailwind CSS — one committed **beige & deep brown**
+  theme (no dark mode/toggle; see CLAUDE.md for the palette breakdown)
 - Recharts (radar/line/bar charts, Writing Task 1 visuals)
 - lucide-react (icons)
 - Web Speech API (Listening text-to-speech) and MediaRecorder API
@@ -101,6 +109,8 @@ server after the practice-first rebuild (Sept 2026).
       Reading/Listening, official Band 9 vs 7 descriptor reference in
       Writing/Speaking self-assessment, labeled Task 2 essay types,
       2 advanced vocabulary sets
+- [x] Re-theme to beige & deep brown; add embedded "Faster Techniques"
+      study material to all 4 skill practice pages
 - [ ] Expand content pools (more reading passages, listening scripts,
       writing prompts, speaking sets) as the current ones get used up
 - [ ] Consider real-time grading feedback for writing (would need an LLM

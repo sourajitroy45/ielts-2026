@@ -3,6 +3,7 @@ import { Headphones } from 'lucide-react'
 import { Card } from '../shared/Card.jsx'
 import { UnsavedBadge } from '../shared/UnsavedBadge.jsx'
 import { useLogs } from '../../lib/LogsContext.jsx'
+import { CHART_GRID_STROKE, CHART_AXIS_TICK, CHART_TOOLTIP_STYLE, CHART_TOOLTIP_LABEL, CHART_LEGEND_STYLE } from '../../lib/chartTheme.js'
 
 export function ListeningTracker({ entries }) {
   const { isUnsaved } = useLogs()
@@ -20,15 +21,15 @@ export function ListeningTracker({ entries }) {
       <div className="h-56 w-full">
         <ResponsiveContainer width="100%" height="100%">
           <BarChart data={chartData} margin={{ top: 8, right: 8, left: -20, bottom: 0 }}>
-            <CartesianGrid strokeDasharray="3 3" stroke="#282f3a" />
-            <XAxis dataKey="name" tick={{ fill: '#64748b', fontSize: 10 }} />
-            <YAxis domain={[0, 10]} tick={{ fill: '#64748b', fontSize: 11 }} />
-            <Tooltip contentStyle={{ background: '#161a20', border: '1px solid #282f3a', borderRadius: 8, fontSize: 12 }} labelStyle={{ color: '#e2e8f0' }} />
-            <Legend wrapperStyle={{ fontSize: 11, color: '#94a3b8' }} />
-            <Bar dataKey="S1" stackId="a" fill="#38bdf8" radius={[0, 0, 0, 0]} />
-            <Bar dataKey="S2" stackId="a" fill="#818cf8" />
-            <Bar dataKey="S3" stackId="a" fill="#c084fc" />
-            <Bar dataKey="S4" stackId="a" fill="#f472b6" radius={[3, 3, 0, 0]} />
+            <CartesianGrid strokeDasharray="3 3" stroke={CHART_GRID_STROKE} />
+            <XAxis dataKey="name" tick={{ ...CHART_AXIS_TICK, fontSize: 10 }} />
+            <YAxis domain={[0, 10]} tick={CHART_AXIS_TICK} />
+            <Tooltip contentStyle={CHART_TOOLTIP_STYLE} labelStyle={CHART_TOOLTIP_LABEL} />
+            <Legend wrapperStyle={CHART_LEGEND_STYLE} />
+            <Bar dataKey="S1" stackId="a" fill="#6b4423" radius={[0, 0, 0, 0]} />
+            <Bar dataKey="S2" stackId="a" fill="#a2571d" />
+            <Bar dataKey="S3" stackId="a" fill="#c2954a" />
+            <Bar dataKey="S4" stackId="a" fill="#7a8c4c" radius={[3, 3, 0, 0]} />
           </BarChart>
         </ResponsiveContainer>
       </div>
