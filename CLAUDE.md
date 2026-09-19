@@ -288,6 +288,43 @@ applying the same research discipline as the Band 9 rework, though:
 prefer converging, well-corroborated advice over any single source's
 claim, especially anything framed as a "2026 pattern."
 
+## Deployment — GitHub Pages
+
+Live at **https://sourajitroy45.github.io/ielts-2026/**. Deployed via
+`.github/workflows/deploy.yml` (GitHub Actions: build with `npm ci && npm
+run build`, then `actions/deploy-pages`) on every push to `main` — no
+manual deploy step. Pages is configured with `build_type: workflow` (set
+via `gh api -X POST repos/.../pages -f build_type=workflow`), not the
+legacy "deploy from a branch" mode.
+
+**Decisions made getting here (2026-09), in case they need revisiting:**
+- GitHub Pages' free tier does **not** support Pages on a private repo —
+  confirmed via research before proceeding, since the repo was private at
+  the time. The user chose to make the repo public rather than switch to
+  a host that supports private-repo deploys (e.g. Vercel) — explicitly
+  informed that `data/logs.json` (mock scores, error-log notes) and full
+  commit history are now publicly visible, not just the app link. If this
+  becomes a problem later, moving to Vercel (deploys from a private repo
+  on its free tier) is the fix — would need `vite.config.js`'s `base` set
+  back to `/` (or left as-is if not on a subpath) and the GitHub Actions
+  workflow removed in favor of Vercel's own git integration.
+- Progress (`progressStore.jsx` / localStorage) is **not** synced across
+  devices — explicitly decided against building a backend for this. If a
+  future session is asked for cross-device sync, that's a real backend
+  addition (e.g. Supabase/Firebase free tier), not a small change — scope
+  it as its own project rather than assuming it's quick.
+- `vite.config.js` sets `base: '/ielts-2026/'` for GitHub Pages' project-
+  page URL structure. If the repo is ever renamed, or moved to a host
+  that serves from the domain root (Vercel, Netlify, a custom domain),
+  this needs to change back to `/` (or the new path) or asset URLs will
+  404.
+- `public/manifest.webmanifest` + `public/icon-*.png` /
+  `apple-touch-icon.png` enable "Add to Home Screen" on iOS/Android for
+  an app-like icon and standalone window. Icons were rendered via
+  headless Chrome screenshotting a small HTML/SVG source (no image tool
+  was available in-session) — regenerate the same way if the icon design
+  changes, or replace with real designed assets.
+
 ## Persistence / verification notes
 
 - `npm install`, `npm run build`, and `npm run dev` were all verified clean

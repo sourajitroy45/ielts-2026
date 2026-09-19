@@ -1,0 +1,14 @@
+{
+  "name": "IELTS 2026",
+  "short_name": "IELTS 2026",
+  "description": "Band 9 IELTS prep — gamified practice, study plan, and vocabulary trainer.",
+  "start_url": "/ielts-2026/",
+  "scope": "/ielts-2026/",
+  "display": "standalone",
+  "background_color": "#f1e6d0",
+  "theme_color": "#6b4423",
+  "icons": [
+    { "src": "/ielts-2026/icon-192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/ielts-2026/icon-512.png", "sizes": "512x512", "type": "image/png" }
+  ]
+}

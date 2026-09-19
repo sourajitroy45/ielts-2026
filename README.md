@@ -84,7 +84,27 @@ across established prep sources and community discussion (not fabricated
   - browser `localStorage` — practice completion, vocab spaced-repetition
     state, study-plan checkboxes (durable per-browser, not in the repo)
 
-## Running it
+## Live link
+
+**https://sourajitroy45.github.io/ielts-2026/** — hosted on GitHub Pages,
+works on any device (laptop, iPhone, etc.) with just the URL, no `npm`
+needed. Auto-deploys within ~1-2 minutes of every push to `main` via
+`.github/workflows/deploy.yml`.
+
+Two things worth knowing about this setup:
+- **The repo is public** (GitHub Pages requires this on the free plan —
+  see CLAUDE.md for the tradeoff that was discussed and accepted). Don't
+  put anything actually sensitive in `data/logs.json` or commit messages.
+- **Progress does not sync across devices.** XP, vocab spaced-repetition
+  state, and study-plan checkboxes live in browser `localStorage`, which
+  is per-browser. Using the link on both a laptop and an iPhone gives you
+  two independent practice histories, not a shared one — see CLAUDE.md if
+  cross-device sync is ever wanted (it would need a real backend).
+- **Add to Home Screen** on iPhone (Safari share sheet → "Add to Home
+  Screen") for an app-like icon and standalone window — a web manifest +
+  icons are set up for this.
+
+## Running it locally
 
 ```bash
 npm install
@@ -120,5 +140,5 @@ server after the practice-first rebuild (Sept 2026).
 
 ## Links
 
-- Code repo: [github.com/sourajitroy45/ielts-2026](https://github.com/sourajitroy45/ielts-2026) (private)
-- Deployed URL: none — local dev only (`npm run dev`)
+- Code repo: [github.com/sourajitroy45/ielts-2026](https://github.com/sourajitroy45/ielts-2026) (public)
+- Live app: [sourajitroy45.github.io/ielts-2026](https://sourajitroy45.github.io/ielts-2026/)
